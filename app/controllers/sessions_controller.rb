@@ -5,12 +5,12 @@ class SessionsController < ApplicationController
 		user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
 		session[:user_id] = user.id
 		redirect_to root_url
-		flash[:success] = "Signed in With Instagram!"
+		flash[:success] = "Welcome! #{auth["info"]["name"]}"
 	end
 
 	def destroy
 		session[:user_id] = nil
 		redirect_to root_url
-		flash[:success] = "Signed Out!"
+		flash[:success] = "Bye!"
 	end
 end
