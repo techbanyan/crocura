@@ -1,5 +1,8 @@
 Crocura::Application.routes.draw do
 
+  match "/auth/:provider/callback" => "sessions#create"
+  match "/signout" => "sessions#destroy", :as => :signout
+
   match "how_it_works" =>  "header_links#how_it_works"
   match "faq" =>  "header_links#faq"
   match "help" =>  "header_links#help"

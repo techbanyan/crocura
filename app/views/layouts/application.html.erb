@@ -38,6 +38,16 @@
 
     <%= render :partial => "layouts/header_top"%>
 
+    <%flash.each do |key,value|%>
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span4">
+            <div class="flash alert alert-<%=key%> alert-box eight columns"><%=value%></div>
+          </div>
+        </div>
+      </div>
+    <%end%>
+          
     <div class="container-fluid">
       <div class="row-fluid">
         <div class="span12">

@@ -8,7 +8,10 @@
 						%li
 							=link_to "How it Works", how_it_works_path
 						%li
-							=link_to "Login with Instagram", "#"
+							-if current_user
+								= link_to "Logout", signout_path
+							-else
+								=link_to "Login with Instagram", "/auth/instagram"
 				.span5
 				.span2
 					%ul(class="nav header-top")
