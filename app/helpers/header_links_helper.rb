@@ -1,0 +1,2 @@
+module HeaderLinksHelper
+end

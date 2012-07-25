@@ -9,7 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require bootstrap_and_overrides
  */
- @import "welcome.css.scss";
 
- 
+ @import "welcome.css.less";
+ @import "bootstrap_and_overrides.css.less";
+ @import "layouts.css.less";
+ @import "headers.css.less";

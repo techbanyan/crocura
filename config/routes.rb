@@ -1,4 +1,10 @@
 Crocura::Application.routes.draw do
+
+  match "how_it_works" =>  "header_links#how_it_works"
+  match "faq" =>  "header_links#faq"
+  match "help" =>  "header_links#help"
+  match "about" =>  "header_links#about"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
