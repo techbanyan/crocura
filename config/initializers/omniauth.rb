@@ -1,3 +1,8 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :instagram, '1cd7f7b1702343398850dbae7c9def2a', 'a37b1b98852a42b5b1bad48d69add6aa'
+
+	instagram_credentials_file = File.join(Rails.root,'config','instagram_credentials.yml')
+	raise "#{instagram_credentials_file} is missing!" unless File.exists? instagram_credentials_file
+	instagram_credentials = YAML.load_file(instagram_credentials_file)[Rails.env].symbolize_keys
+
+  	provider :instagram, instagram_credentials[:CLIENT_ID], instagram_credentials[:CLIENT_SECRET]
 end
