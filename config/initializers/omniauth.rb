@@ -5,4 +5,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 	instagram_credentials = YAML.load_file(instagram_credentials_file)[Rails.env].symbolize_keys
 
   	provider :instagram, instagram_credentials[:CLIENT_ID], instagram_credentials[:CLIENT_SECRET]
+
+	OmniAuth.config.on_failure = SessionsController.action(:oauth_failure)
 end

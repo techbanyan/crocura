@@ -13,4 +13,9 @@ class SessionsController < ApplicationController
 		redirect_to root_url
 		flash[:success] = "Bye!"
 	end
+
+	def oauth_failure
+		redirect_to root_url
+		flash[:error] = "You need to authorize Crocura to access your Instagram profile!"
+	end
 end
