@@ -32,11 +32,12 @@
 
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
-    <%= favicon_link_tag 'images/favicon.ico', :rel => 'shortcut icon' %>
+    <%= favicon_link_tag '/favicon.ico', :rel => 'shortcut icon' %>
   </head>
   <body>
 
     <%= render :partial => "layouts/header_top"%>
+    <%= render :partial => "layouts/header_middle"%>
 
     <%flash.each do |key,value|%>
       <div class="container-fluid">
@@ -48,19 +49,13 @@
       </div>
     <%end%>
           
-    <div class="container-fluid">
+<!--     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span12">
-          <%= yield %>
-        </div>
-      </div><!--/row-->
-
-<!--       <footer>
-        <p>&copy; Company 2012</p>
-      </footer> -->
-
-    </div> <!-- /container -->
-
+        <div class="span12"> -->
+    <%= yield %>
+<!--         </div>
+      </div>
+    </div>  -->
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
