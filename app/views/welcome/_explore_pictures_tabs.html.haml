@@ -1,0 +1,15 @@
+= render :partial => "layouts/give_hr"
+.container-fluid
+	.row-fluid
+		.span2
+			.explore-pictures-indicator
+				Explore ->
+		.span10
+			.explore-pictures-tabs
+				%ul
+					%li
+						=link_to "Popular", faq_path
+					%li
+						=link_to "London", help_path
+					%li
+						=link_to "Chocolate", about_path

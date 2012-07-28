@@ -2,4 +2,48 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "colors.css.less";
 
+.explore-pictures-tabs {
+
+	height: 50px !important;
+	//background: #DAF0FA;
+
+	background: -webkit-linear-gradient(top, #DAF0FA 0%, #C7ECFE 50%, #C0EBFF 50.1%, #B9E9FF 100%);
+	background: -webkit-linear-gradient(top, #DAF0FA 0%, #C7ECFE 50%, #C0EBFF 50.1%, #B9E9FF 100%);
+
+	ul {
+
+		padding-top: 15px;
+		li {
+			padding-left: 5px;
+			padding-right: 5px;
+			display: inline;
+			font-family: 'Crete Round', serif;
+			font-size: 150%;
+			border-right: 1px solid #E6E6E6;
+			&:last-child {
+				border-right: none;
+			}
+			a {
+				color: @blueDark;
+				text-decoration: none;
+
+				&:hover {
+					color: @blue;
+				}
+				&:active {
+					color: @grayDarker;
+				}
+			}
+		}
+	}
+}
+
+.explore-pictures-indicator {
+	padding-top: 15px;
+	font-family: 'Crete Round', serif;
+	font-size: 150%;
+	font-style: italic;
+	color: @gray;
+}
