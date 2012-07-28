@@ -1,1 +1,7 @@
 = render :partial => "explore_pictures_tabs"
+.whitespace25
+.container-fluid
+	.row-fluid
+		.span12
+			-@media.each do |photo|
+				=image_tag photo.images.thumbnail.url, :width => '200', :height => '200'

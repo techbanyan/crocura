@@ -4,24 +4,31 @@
 
 @import "colors.css.less";
 
+.whitespace25 {
+	height: 25px;
+}
+
+.whitespace50 {
+	height: 50px;
+}
 .explore-pictures-tabs {
 
-	height: 50px !important;
-	//background: #DAF0FA;
-
-	background: -webkit-linear-gradient(top, #DAF0FA 0%, #C7ECFE 50%, #C0EBFF 50.1%, #B9E9FF 100%);
-	background: -webkit-linear-gradient(top, #DAF0FA 0%, #C7ECFE 50%, #C0EBFF 50.1%, #B9E9FF 100%);
-
 	ul {
-
 		padding-top: 15px;
 		li {
-			padding-left: 5px;
-			padding-right: 5px;
+			height: 50px !important;
+			//background: -webkit-linear-gradient(top, #DAF0FA 0%, #C7ECFE 50%, #C0EBFF 50.1%, #B9E9FF 100%);
+			//background: -webkit-linear-gradient(top, #DAF0FA 0%, #C7ECFE 50%, #C0EBFF 50.1%, #B9E9FF 100%);
+			
+			background: #C0EBFF;
+			-moz-border-radius: 10px;
+			border-radius: 10px;
+			padding: 10px 10px 10px 10px;
+			margin-left: 10px;
+			margin-right: 10px;
 			display: inline;
 			font-family: 'Crete Round', serif;
 			font-size: 150%;
-			border-right: 1px solid #E6E6E6;
 			&:last-child {
 				border-right: none;
 			}
@@ -30,7 +37,7 @@
 				text-decoration: none;
 
 				&:hover {
-					color: @blue;
+					color: @gray;
 				}
 				&:active {
 					color: @grayDarker;
@@ -41,9 +48,10 @@
 }
 
 .explore-pictures-indicator {
-	padding-top: 15px;
 	font-family: 'Crete Round', serif;
 	font-size: 150%;
 	font-style: italic;
 	color: @gray;
+	padding-right: 20px;
+	background: @siteBackgroundColor !important;
 }

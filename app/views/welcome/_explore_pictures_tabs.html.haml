@@ -1,15 +1,14 @@
-= render :partial => "layouts/give_hr"
+.whitespace50
 .container-fluid
 	.row-fluid
-		.span2
-			.explore-pictures-indicator
-				Explore ->
-		.span10
+		.span12
 			.explore-pictures-tabs
 				%ul
+					%li(class = "explore-pictures-indicator")
+						Explore ->
 					%li
-						=link_to "Popular", faq_path
+						=link_to "Popular", root_url
 					%li
-						=link_to "London", help_path
+						=link_to "London", root_url(:querytype => "location", :latitude => "51.50722", :longitude => "-0.12750")
 					%li
-						=link_to "Chocolate", about_path
+						=link_to "Chocolate", root_url(:querytype => "tag", :query => "chocolate")
