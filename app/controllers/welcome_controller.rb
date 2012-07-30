@@ -19,9 +19,7 @@ class WelcomeController < ApplicationController
 				@media = media 
 			end
 		else
-			media = Instagram.media_popular(:count => 45)
-			#@media = media.paginate(:per_page => 18) 
-			@media = media
+			@media = Instagram.media_popular(:count => 45)
 		end
 
 	    respond_with do |format|
