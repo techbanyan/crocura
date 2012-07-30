@@ -1,6 +1,13 @@
 = render :partial => "explore_pictures_tabs"
 .whitespace25
+=render :partial => "stream", :locals => { :media => @media }
+.get-more-stream
 .container-fluid
 	.row-fluid
-		-@media.each do |photo|
-			=image_tag photo.images.low_resolution.url, :width => '250', :height => '250', :class => "image-decoration"
+		.span3
+		.span9
+			%h1=link_to "LOAD MORE", stream_path, :class => "load-more", :remote => true
+.whitespace50
+.whitespace50
+
+

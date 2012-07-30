@@ -10,6 +10,7 @@ gem 'haml'
 gem 'omniauth-instagram'
 gem 'omniauth-oauth2', '1.0.3'
 gem 'instagram'
+gem 'will_paginate'
 
 # Gems used only for assets and not required
 # in production environments by default.
