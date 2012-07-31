@@ -1,12 +1,9 @@
-.container-fluid.custom-middle-header-container
-	.row-fluid
-		.span1
-		.span11
-			.middle-header
-				%ul
-					%li
-						Live. Love. Like. 
-					%li
-						=link_to image_tag("sign-in-with-instagram.png"), "/auth/instagram"
-					%li
-						Spread Happiness.
+.container-fluid
+	.row-fluid.custom-middle-header-container
+		.span12.middle-header
+			.span4.middle-header-text
+				Live. Love. Like. 
+			.span4.middle-header-image
+				=link_to image_tag("sign-in-with-instagram.png"), "/auth/instagram"
+			.span4.middle-header-text
+				Spread Happiness.

@@ -10,16 +10,16 @@ class WelcomeController < ApplicationController
 		@query = params[:query]
 		if @query.present?
 			if params[:querytype] == "location"
-				media = Instagram.media_search(params[:latitude], params[:longitude], :count => 300)
+				media = Instagram.media_search(params[:latitude], params[:longitude], :count => 18)
 				#@media = media.paginate(:per_page => 18)
 				@media = media
 			elsif params[:querytype] == "tag"
-				media = Instagram.tag_recent_media(params[:query], :count => 63).data
+				media = Instagram.tag_recent_media(params[:query], :count => 18).data
 				#@media = media.paginate(:per_page => 18)
 				@media = media 
 			end
 		else
-			@media = Instagram.media_popular(:count => 45)
+			@media = Instagram.media_popular(:count => 18)
 		end
 
 	    respond_with do |format|

@@ -12,39 +12,37 @@
 	height: 50px;
 }
 .explore-pictures-tabs {
+	padding-top: 15px;
+	li {
+		height: 50px !important;
+		//background: -webkit-linear-gradient(top, #DAF0FA 0%, #C7ECFE 50%, #C0EBFF 50.1%, #B9E9FF 100%);
+		//background: -webkit-linear-gradient(top, #DAF0FA 0%, #C7ECFE 50%, #C0EBFF 50.1%, #B9E9FF 100%);
+		
+		background: #C0EBFF;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+		padding: 10px 10px 10px 10px;
+		margin-left: 10px;
+		margin-right: 10px;
+		display: inline;
+		font-family: 'Crete Round', serif;
+		font-size: 150%;
+		&:last-child {
+			border-right: none;
+		}
+		a {
+			color: @blueDark;
+			text-decoration: none;
 
-	ul {
-		padding-top: 15px;
-		li {
-			height: 50px !important;
-			//background: -webkit-linear-gradient(top, #DAF0FA 0%, #C7ECFE 50%, #C0EBFF 50.1%, #B9E9FF 100%);
-			//background: -webkit-linear-gradient(top, #DAF0FA 0%, #C7ECFE 50%, #C0EBFF 50.1%, #B9E9FF 100%);
-			
-			background: #C0EBFF;
-			-moz-border-radius: 10px;
-			border-radius: 10px;
-			padding: 10px 10px 10px 10px;
-			margin-left: 10px;
-			margin-right: 10px;
-			display: inline;
-			font-family: 'Crete Round', serif;
-			font-size: 150%;
-			&:last-child {
-				border-right: none;
+			&:hover {
+				color: @gray;
 			}
-			a {
-				color: @blueDark;
-				text-decoration: none;
-
-				&:hover {
-					color: @gray;
-				}
-				&:active {
-					color: @grayDarker;
-				}
+			&:active {
+				color: @grayDarker;
 			}
 		}
 	}
+	
 }
 
 .explore-pictures-indicator {
@@ -60,12 +58,13 @@
 	background: #F5F5F5;
 	border: 1px solid #D8D8D8;
 	padding: 10px;
-	margin-right: 30px;
-	margin-bottom: 30px;
+	margin: 18px 18px 18px 18px;
 
-	&:last-child {
-		margin-right: 0px;
-	}
+
+	// &:nth-child(3n) {
+	// 	margin-right: 0px;
+	// }
+
 	&:hover {
 		-webkit-transform: scale(1.005);
 		-moz-transform: scale(1.005);
@@ -76,8 +75,32 @@
 	box-shadow: 4px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
-.loading {
-	display: none;
+.btn.blue.load-more-bar {
+	width: 97%; //100% is overstretching it to the right to go out of the container
+	line-height: 3em;
+	font-weight: bold;
+	border: 1px solid rgba(0, 0, 0, 0.2);	
+	background-color: #127EAF;
+	background: -webkit-linear-gradient(top, #25A8E3 0%, #1C92C8 50%, #188BC1 50.1%, #127EAF 100%);
+	background: -moz-linear-gradient(top, #25A8E3 0%, #1C92C8 50%, #188BC1 50.1%, #127EAF 100%);
+	border-color: #127EAF #1878A5 #126A94 #1878A5;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 130%;
+	color: white;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+
+	&:hover {
+		color: white;
+		text-decoration: none;
+	}
 }
+
+.explore-pirctures-tabs {
+	li {
+		display: inline;
+	}
+}
+
+
 
 

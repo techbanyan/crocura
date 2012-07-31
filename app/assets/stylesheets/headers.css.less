@@ -2,26 +2,24 @@
 @import "colors.css.less";
 
 .custom-middle-header-container {
-	height: 100px;	
+	min-height: 100px;	
 	background: @blueDarkish;
+	padding: 10px;
 }
 
 .middle-header {
-	padding-top: 30px;
-	padding-left: 45px;
+	max-width: 767px;
+	min-width: 480px;
+	padding-left: 15%;
 	color: #F3F3F3;
-	//font-family: 'Crete Round', serif;
 	font-family: 'Lucida Sans Unicode';
 	font-size: 170%;
 
-	ul {
-		li {
-			padding-right: 5px;
-			display: inline;
-		}
+	.middle-header-text {
+		padding-top: 40px;
 	}
 
-	ul li img {
-		padding-bottom: 3px;
+	.middle-header-image {
+		padding-top: 32px;
 	}
 }

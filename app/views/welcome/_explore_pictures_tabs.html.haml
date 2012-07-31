@@ -2,13 +2,12 @@
 .container-fluid
 	.row-fluid
 		.span12
-			.explore-pictures-tabs
-				%ul
-					%li(class = "explore-pictures-indicator")
-						Explore ->
-					%li
-						=link_to "Popular", root_url
-					%li
-						=link_to "London", root_url(:querytype => "location", :latitude => "51.50722", :longitude => "-0.12750")
-					%li
-						=link_to "Chocolate", root_url(:querytype => "tag", :query => "chocolate")
+			%ul(class ="explore-pirctures-tabs")
+				%li(class = "explore-pictures-indicator")
+					Explore ->
+				%li
+					=link_to "Popular", root_url
+				%li
+					=link_to "London", root_url(:querytype => "location", :latitude => "51.50722", :longitude => "-0.12750")
+				%li
+					=link_to "Chocolate", root_url(:querytype => "tag", :query => "chocolate")
