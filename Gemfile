@@ -5,7 +5,8 @@ gem 'rails', '3.2.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'twitter-bootstrap-rails'
+#gem 'twitter-bootstrap-rails'
+gem 'therubyracer'
 gem 'haml'
 gem 'omniauth-instagram'
 gem 'omniauth-oauth2', '1.0.3'
