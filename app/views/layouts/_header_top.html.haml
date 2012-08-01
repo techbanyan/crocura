@@ -2,7 +2,7 @@
 	.navbar-inner
 		.container-fluid
 			.row-fluid
-				.span7
+				.span12
 					=link_to image_tag("Crocura Logo.png"), root_url, :class=> "brand"
 					%ul(class="nav header-top")
 						%li
@@ -12,12 +12,10 @@
 								= link_to "Logout", signout_path
 							-else
 								=link_to "Sign In with Instagram", "/auth/instagram"
-				.span2
-				.span3
 					%ul(class="nav header-top pull-right")
-						%li(class="pull-right")
+						%li
 							=link_to "FAQ", faq_path
-						%li(class="pull-right")
+						%li
 							=link_to "Help", help_path
-						%li(class="pull-right")
+						%li
 							=link_to "About", about_path
