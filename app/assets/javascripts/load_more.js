@@ -8,9 +8,10 @@ $(document).ready(function(){
 	    })
 
 		.live("ajax:success", function(evt, data, status, xhr){
-			$(xhr.responseText).appendTo('.get-more-stream');
-	      	$('html,body').animate({scrollTop: $('.get-more-stream').children().last().offset().top-200}, 1000);
+			$(xhr.responseText).appendTo($('.stream-container'));
+	      	$('html,body').animate({scrollTop: $('.stream-container').children().last().offset().top-200}, 1000);
 	      	$(this).text("SHOW MORE");
 	    })
 });
+
 

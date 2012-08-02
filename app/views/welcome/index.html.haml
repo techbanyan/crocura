@@ -1,12 +1,19 @@
 = render :partial => "explore_pictures_tabs"
 .whitespace25
-=render :partial => "stream", :locals => { :media => @media }
-.get-more-stream
+.stream-container
+	=render :partial => "stream", :locals => { :media => @media }
 .whitespace25
+.show-more-bar
+	.container-fluid
+		.row-fluid
+			.span12
+				=link_to "SHOW MORE", stream_path, :class => "btn blue load-more-bar load-more", :remote => true
 .container-fluid
 	.row-fluid
-		.span12
-			=link_to "SHOW MORE", stream_path, :class => "btn blue load-more-bar load-more", :remote => true
+		.span4
+		.span8
+			=image_tag "loading.gif", :class => "loading-stream", :width => '200', :height => '200'
+
 .whitespace50
 .whitespace50
 
