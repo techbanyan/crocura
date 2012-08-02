@@ -2,12 +2,23 @@
 .container-fluid
 	.row-fluid
 		.span12
-			%ul(class ="explore-pirctures-tabs")
-				%li(class = "explore-pictures-indicator")
-					Explore ->
+			%ul.explore-pictures-tabs-span
 				%li
-					=link_to "Popular", root_url
+					=link_to "Popular", root_url, :class => "explore-pictures-tabs"
 				%li
-					=link_to "London", root_url(:querytype => "location", :latitude => "51.50722", :longitude => "-0.12750")
+					=link_to "London", root_url(:querytype => "location", :latitude => "51.50722", :longitude => "-0.12750"), :class => "explore-pictures-tabs"
 				%li
-					=link_to "Chocolate", root_url(:querytype => "tag", :query => "chocolate")
+					=link_to "Chocolate", root_url(:querytype => "tag", :query => "chocolate"), :class => "explore-pictures-tabs"
+				%li
+					=link_to "Popular", root_url, :class => "explore-pictures-tabs"
+				%li
+					=link_to "London", root_url(:querytype => "location", :latitude => "51.50722", :longitude => "-0.12750"), :class => "explore-pictures-tabs"
+				%li
+					=link_to "Chocolate", root_url(:querytype => "tag", :query => "chocolate"), :class => "explore-pictures-tabs"
+				%li
+					=link_to "Popular", root_url, :class => "explore-pictures-tabs"
+				%li
+					=link_to "London", root_url(:querytype => "location", :latitude => "51.50722", :longitude => "-0.12750"), :class => "explore-pictures-tabs"
+				%li
+					=link_to "Chocolate", root_url(:querytype => "tag", :query => "chocolate"), :class => "explore-pictures-tabs"
+					
