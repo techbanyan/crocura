@@ -1,13 +1,6 @@
 = render :partial => "explore_pictures_tabs"
 .whitespace25
-.stream-container
-	=render :partial => "stream", :locals => { :media => @media }
-.whitespace25
-.show-more-bar
-	.container-fluid
-		.row-fluid
-			.span12
-				=link_to "SHOW MORE", stream_path, :class => "btn blue load-more-bar load-more", :remote => true
+= render :partial => "stream_container", :locals => {:media => @media, :querytype => @querytype, :query => @query, :latitude => @latitude, :longitude => @longitude}
 .container-fluid
 	.row-fluid
 		.span4

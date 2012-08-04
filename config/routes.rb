@@ -9,6 +9,7 @@ Crocura::Application.routes.draw do
   match "about" =>  "header_links#about"
 
   match "stream" => "welcome#stream"
+  match "stream_container" => "welcome#stream_container"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

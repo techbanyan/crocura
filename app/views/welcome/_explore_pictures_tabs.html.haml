@@ -4,9 +4,11 @@
 		.span12
 			%ul.explore-pictures-tabs-span
 				%li
-					=link_to "Popular", stream_path, :class => "explore-pictures-tabs", :remote => true
+					=link_to "Popular", root_url, :class => "explore-pictures-tabs", :remote => true
 				%li
-					=link_to "London", root_url(:querytype => "location", :latitude => "51.50722", :longitude => "-0.12750"), :class => "explore-pictures-tabs", :remote => true
+					=link_to "London (Location Based)", root_url(:querytype => "location", :query => "london", :latitude => "51.50722", :longitude => "-0.12750"), :class => "explore-pictures-tabs", :remote => true
+				%li
+					=link_to "London (tag based)", root_url(:querytype => "tag", :query => "london"), :class => "explore-pictures-tabs", :remote => true
 				%li
 					=link_to "Chocolate", root_url(:querytype => "tag", :query => "chocolate"), :class => "explore-pictures-tabs", :remote => true
 					

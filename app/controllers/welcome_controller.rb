@@ -1,33 +1,91 @@
-require 'json'
+require 'multi_json'
+require 'open-uri'
 class WelcomeController < ApplicationController
 	respond_to :html, :xml, :json
 
 	def index
-		stream
+		@show_more_data = false
+		stream_container
 	end
 
-	def stream
-		@query = params[:query]
-		if @query.present?
-			if params[:querytype] == "location"
-				media = Instagram.media_search(params[:latitude], params[:longitude], :count => 18)
-				#@media = media.paginate(:per_page => 18)
-				@media = media
-			elsif params[:querytype] == "tag"
-				media = Instagram.tag_recent_media(params[:query], :count => 18).data
-				#@media = media.paginate(:per_page => 18)
-				@media = media 
+	def stream_container
+		@querytype = params[:querytype]
+		if @show_more_data == false
+			@show_more_data = true
+			if @querytype.present?
+				if @querytype == "location"
+					@latitude = params[:latitude]
+					@longitude = params[:longitude]
+					@query = params[:query]
+					media_packet = Instagram.media_search(@latitude, @longitude, :count => 40)
+					#raise media_packet = Instagram.location_recent_media(514276).to_yaml
+					@media = media_packet.data
+					#@max_id = get_max_id
+					#@next_url = media_packet.pagination.next_url
+					#Rails.cache.write('next_url', @next_url)
+					@max_tag_id = get_max_id
+					Rails.cache.write('max_tag_id', @max_tag_id)
+				elsif @querytype == "tag"
+					@query = params[:query]
+					media_packet = Instagram.tag_recent_media(@query, :count => 24)
+					@media = media_packet.data
+					@max_tag_id = media_packet.pagination.next_max_tag_id
+					Rails.cache.write('max_tag_id', @max_tag_id)
+				end
+			else
+				@media = Instagram.media_popular(:count => 24)
 			end
-		else
-			@media = Instagram.media_popular(:count => 18)
+
+		    respond_with do |format|
+		        format.html do
+		        	if request.xhr?
+		            	render :partial => "welcome/stream_container", :locals => { :media => @media, :querytype => @querytype, :query => @query, :latitude => @latitude, :longitude => @longitude}, :layout => false, :status => :created
+		        	end
+		    	end
+		    end
+		    return
+		else # Following is the code for SHOW MORE
+			@querytype = params[:querytype]
+			if @querytype.present?
+				if @querytype == "location" ## PLease note that Location doesn't have pagination (next_url)
+					@max_tag_id ||=  Rails.cache.fetch('max_tag_id')
+					@latitude = params[:latitude]
+					@longitude = params[:longitude]
+					@query = params[:query]
+					#media_packet = Instagram.get(@next_url)
+					media_packet = Instagram.media_search(@latitude, @longitude, :count => 40, :max_tag_id => @max_tag_id)
+					@media = media_packet.data
+					@max_tag_id = get_max_id
+					Rails.cache.write('max_tag_id', @max_tag_id)
+				elsif @querytype == "tag"
+					@max_tag_id ||= Rails.cache.fetch('max_tag_id')
+					@query = params[:query]
+					media_packet = Instagram.tag_recent_media(@query, :count => 24, :max_tag_id => @max_tag_id)
+					@media = media_packet.data
+					@max_tag_id = media_packet.pagination.next_max_tag_id
+					Rails.cache.write('max_tag_id', @max_tag_id)
+				end
+			else
+				@media = Instagram.media_popular(:count => 24)
+			end
+
+		    respond_with do |format|
+		        format.html do
+		        	if request.xhr?
+		            	render :partial => "welcome/stream", :locals => { :media => @media, :querytype => @querytype, :query => @query, :latitude => @latitude, :longitude => @longitude}, :layout => false, :status => :created
+		        	end
+		    	end
+		    end
+		end
+	end
+
+	def get_max_id
+		@media.each do |media|
+			media.id = media.id[/[^_]+/]
 		end
 
-	    respond_with do |format|
-	        format.html do
-	        	if request.xhr?
-	            	render :partial => "welcome/stream", :locals => { :media => @media }, :layout => false, :status => :created
-	        	end
-	    	end
-	    end
+		@sorted = @media.sort! { |a,b| a.id <=> b.id }
+		return @sorted.first.id
 	end
+
 end

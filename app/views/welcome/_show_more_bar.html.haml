@@ -1,0 +1,11 @@
+.show-more-bar
+	.container-fluid
+		.row-fluid
+			.span12
+				-if querytype.present?
+					-if querytype == "location"
+						=link_to "SHOW MORE", stream_container_path(:querytype => querytype, :query => query, :latitude => latitude, :longitude => longitude), :class => "btn blue load-more-bar load-more", :remote => true
+					-elsif querytype == "tag"
+						=link_to "SHOW MORE", stream_container_path(:querytype => querytype, :query => query, :latitude => latitude, :longitude => longitude), :class => "btn blue load-more-bar load-more", :remote => true
+				-else
+					=link_to "SHOW MORE", stream_container_path, :class => "btn blue load-more-bar load-more", :remote => true

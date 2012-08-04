@@ -1,0 +1,4 @@
+.stream-container
+	=render :partial => "stream", :locals => { :media => media }
+	.whitespace25
+	=render :partial => "show_more_bar", :locals => {:querytype => querytype, :query => query, :latitude => latitude, :longitude => longitude}
