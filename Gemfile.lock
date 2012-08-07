@@ -1,6 +1,6 @@
 GIT
-  remote: git@github.com:abhijeetmisra/instagram-ruby-gem.git
-  revision: 211895c83059877683a1a5617498b1fddf89912a
+  remote: git://github.com/abhijeetmisra/instagram-ruby-gem.git
+  revision: f49143ab055c74ee055858a1b62a2113bf371979
   specs:
     instagram (0.8.5)
       faraday (>= 0.7, < 0.9)
