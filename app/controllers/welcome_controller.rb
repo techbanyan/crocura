@@ -31,7 +31,14 @@ class WelcomeController < ApplicationController
 					@media = media_packet.data
 					@max_tag_id = media_packet.pagination.next_max_tag_id
 					Rails.cache.write('max_tag_id', @max_tag_id)
+				elsif @querytype == "user"
+					client = Instagram.client(:access_token => session[:access_token])
+    				media_packet = client.user_recent_media
+    				@media = media_packet.data
+    				@max_id = media_packet.pagination.next_max_id
+					Rails.cache.write('max_id', @max_id)
 				end
+					
 			else
 				@media = Instagram.media_popular(:count => 24)
 			end
@@ -64,6 +71,16 @@ class WelcomeController < ApplicationController
 					@media = media_packet.data
 					@max_tag_id = media_packet.pagination.next_max_tag_id
 					Rails.cache.write('max_tag_id', @max_tag_id)
+				elsif @querytype == "user"
+					@max_id ||= Rails.cache.fetch('max_id')
+					if @max_id.present?
+						@query = params[:query]
+						client = Instagram.client(:access_token => session[:access_token])
+	    				media_packet = client.user_recent_media(:max_id => @max_id)
+						@media = media_packet.data
+						@max_id = media_packet.pagination.next_max_id
+						Rails.cache.write('max_id', @max_id)
+					end
 				end
 			else
 				@media = Instagram.media_popular(:count => 24)

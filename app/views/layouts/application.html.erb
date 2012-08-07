@@ -37,6 +37,7 @@
     <%= favicon_link_tag '/favicon.ico', :rel => 'shortcut icon' %>
   </head>
   <body>
+    <div class="wrapper">
 
     <%= render :partial => "layouts/header_top"%>
     <%= render :partial => "layouts/header_middle"%>
@@ -55,6 +56,11 @@
       <div class="row-fluid">
         <div class="span12"> -->
     <%= yield %>
+    <div class="push"></div>
+    </div>
+    <%= render :partial => "layouts/footer"%>
+
+
 <!--         </div>
       </div>
     </div>  -->

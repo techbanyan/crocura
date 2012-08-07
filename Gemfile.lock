@@ -1,3 +1,13 @@
+GIT
+  remote: git@github.com:abhijeetmisra/instagram-ruby-gem.git
+  revision: 211895c83059877683a1a5617498b1fddf89912a
+  specs:
+    instagram (0.8.5)
+      faraday (>= 0.7, < 0.9)
+      faraday_middleware (~> 0.8)
+      hashie (>= 0.4.0)
+      multi_json (~> 1.0, >= 1.0.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -50,11 +60,6 @@ GEM
     hike (1.2.1)
     httpauth (0.1)
     i18n (0.6.0)
-    instagram (0.8.5)
-      faraday (>= 0.7, < 0.9)
-      faraday_middleware (~> 0.8)
-      hashie (>= 0.4.0)
-      multi_json (~> 1.0, >= 1.0.3)
     journey (1.0.4)
     jquery-rails (2.0.2)
       railties (>= 3.2.0, < 5.0)
@@ -152,7 +157,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails
   haml
-  instagram
+  instagram!
   jquery-rails
   json
   less
