@@ -6,7 +6,7 @@
 
 				-if current_user
 					%li	
-						=link_to "#{current_user.name}", root_url(:querytype => "user"), :class => "explore-pictures-tabs active", :remote => true
+						=link_to "#{current_user.username}", root_url(:querytype => "user"), :class => "explore-pictures-tabs", :remote => true
 				%li
 					=link_to "Popular", root_url, :class => "explore-pictures-tabs", :remote => true
 				%li

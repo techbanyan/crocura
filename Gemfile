@@ -22,6 +22,14 @@ gem 'coffee-rails'
 gem 'less'
 gem 'less-rails-bootstrap'
 
+gem 'rspec-rails', :group => [:test, :development]
+
+group :test do
+	gem "factory_girl_rails"
+	gem "capybara"
+	gem "guard-rspec"
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

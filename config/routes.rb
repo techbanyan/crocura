@@ -7,6 +7,7 @@ Crocura::Application.routes.draw do
   match "faq" =>  "header_links#faq"
   match "help" =>  "header_links#help"
   match "about" =>  "header_links#about"
+  match "privacy" => "header_links#privacy"
 
   match "stream" => "welcome#stream"
   match "stream_container" => "welcome#stream_container"
