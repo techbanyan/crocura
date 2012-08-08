@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   		user.provider = auth["provider"]
   		user.uid = auth["uid"]
   		user.name = auth["info"]["name"]
-  		user.username = auth["info"]["name"]
+  		user.username = auth["info"]["nickname"]
   	end
   end
 end
