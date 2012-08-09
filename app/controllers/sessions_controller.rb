@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 		session[:user_id] = user.id
 		session[:access_token] = auth["credentials"]["token"]
 		redirect_to root_url
-		flash[:success] = "Welcome! #{auth["info"]["name"]}"
+		flash[:success] = "Aloha, #{auth["info"]["name"]}"
 	end
 
 	def destroy

@@ -1,5 +1,6 @@
 require 'multi_json'
 require 'open-uri'
+require 'facets/enumerable/each_by'
 class WelcomeController < ApplicationController
 	respond_to :html, :xml, :json
 

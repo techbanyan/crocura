@@ -1,5 +1,32 @@
 .stream
 	.container-fluid
-		.row-fluid
-			-media.each do |photo|
-				=image_tag photo.images.low_resolution.url, :width => '265', :height => '265', :class => "image-decoration"
+		-media.each_by(3) do |photos|
+			.row-fluid.stream-row
+				-photos.each do |photo|
+					.span4.stream-span
+						.thumb
+							=image_tag photo.images.low_resolution.url, :width => '265', :height => '265', :class => "image-decoration"
+							.photo-hover-content-bottom
+								.row-fluid
+									.span3
+										-if photo.caption.present?
+											=image_tag photo.caption.from.profile_picture, :width => '44', :height => '44', :class => "photo-hover-content-bottom-profile-image"
+									.span9
+										.row-fluid.photo-hover-content-bottom-details
+											.span12
+												%em #{time_ago_in_words(Time.at(photo.created_time.to_i))} ago
+										.row-fluid.photo-hover-content-bottom-details
+											.span12
+												%ul
+													%li
+														%i(class="icon-heart")
+													%li
+														=photo.likes[:count]
+												%ul
+													%li
+														%i(class="icon-comment")
+													%li
+														=photo.comments[:count]
+												
+
+
