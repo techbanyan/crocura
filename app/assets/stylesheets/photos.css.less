@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "colors.css.less";
+
 .photo-box {
 	padding: 20px 20px 20px 20px !important;
 	background: #F1F1F1;
@@ -39,6 +41,11 @@
 		font-style: italic;
 		font-weight: bold;
 		border: 2px dotted @grayLight;
+
+		.like-icon {
+			font-size: 100px;
+			color: red;
+		}
 
 		a {
 			text-decoration: none;
@@ -79,6 +86,26 @@
 
 .profile-picture-thumb {
 	padding: 2px;
+}
+
+.login-box-container {
+	font-size: 120%;
+	min-height: 50px;	
+	background: @blueDarkish;
+}
+
+.login-box-text {
+	padding: 3% 2% 3% 12%;
+	color: #F3F3F3;
+	font-family: 'Lucida Sans Unicode';
+	font-size: 110%;
+
+	li {
+		margin-right: 1%;
+		margin-bottom: 1%;
+		margin-top: 1.5%;
+		display: inline-block;
+	}
 }
 
 

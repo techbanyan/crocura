@@ -5,8 +5,13 @@ class SessionsController < ApplicationController
 		user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
 		session[:user_id] = user.id
 		session[:access_token] = auth["credentials"]["token"]
-		redirect_to root_url
-		flash[:success] = "Aloha, #{auth["info"]["name"]}"
+		if session[:return_to].present?
+			redirect_to session[:return_to]
+			return
+		else
+			redirect_to root_url
+		end
+		flash[:success] = "Aloha, #{auth["info"]["username"]}"
 	end
 
 	def destroy

@@ -13,7 +13,7 @@
 											%tr
 												%td
 													-if photo.caption.present?
-														=image_tag photo.caption.from.profile_picture, :alt => "", :width => '44', :height => '44', :class => "photo-hover-content-bottom-profile-image"
+														=link_to image_tag(photo.caption.from.profile_picture, :alt => "", :width => '44', :height => '44', :class => "photo-hover-content-bottom-profile-image"), user_path(photo.caption.from.id), :target => "_blank"
 												%td(class = "photo-hover-content-bottom-details")
 													%table
 														%tr

@@ -3,41 +3,41 @@
 	.row-fluid
 		.span12.photo-box			
 			.span7
-				.photo
-					= image_tag @photo.images.standard_resolution.url
+				.row-fluid
+					.span12
+						.photo
+							= image_tag @photo.images.standard_resolution.url
+					.span12
+						%strong=@photo.caption.text
 				.photo-box-details
 					.row-fluid
 						.span3
-							= link_to image_tag(@photo.user.profile_picture), user_path(@photo.user.id), :target => "_blank", :height => "150px", :width => "150px"
-						.span9
 							.row-fluid
 								.span12
-									=@photo.caption.text
-							.whitespace10
+									= link_to image_tag(@photo.user.profile_picture), user_path(@photo.user.id), :target => "_blank", :height => "150px", :width => "150px"
+								.span12
+									#{link_to @photo.user.username, user_path(@photo.user.id), :target => "_blank", :class => "photo-box-details-username"}
+						.span9
 							.row-fluid
 								.span7
 								.span5
 									=render :partial => "photos/share_buttons"
-					.row-fluid
-						.span12
-							#{link_to @photo.user.username, user_path(@photo.user.id), :target => "_blank", :class => "photo-box-details-username"}
+							.whitespace25
+
 			.span5
 				.photo-box-likes-box
 					.row-fluid
 						.span12
-							#{@photo.likes[:count]} Likes
-							=link_to "Sign In with Instagram", "/auth/instagram"
-						.span12
-							.likes-digest
-								-likes = @photo.likes.data
-								-likes.each do |like|
-									=link_to (image_tag like.profile_picture, :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(like.id), :target => "_blank"
-								=link_to "Show More", "#", :class => "likes-digest-show-all", :remote => true
-							.likes-all
-								-likes = Instagram.media_likes(@photo[:id])
-								-likes.each do |like|
-									=link_to (image_tag like.profile_picture, :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(like.id), :target => "_blank"
-				.whitespace25
+							.span3
+								#{@photo.likes[:count]} Likes
+							.span9
+								-if current_user
+									=link_to '<div style="font-size: 35px;color: red;"><i class="icon-heart-empty"></i></div>'.html_safe, "#", :class => "like-icon"
+							=render :partial => "likes_show"
+				.whitespace10
+				.login-box
+					=render :partial => "photos/login_box"
+				.whitespace10
 				.photo-box-comments-box
 					.row-fluid
 						.span12
