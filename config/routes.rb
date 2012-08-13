@@ -12,6 +12,9 @@ Crocura::Application.routes.draw do
   match "stream" => "welcome#stream"
   match "stream_container" => "welcome#stream_container"
 
+  resources :photos
+  resources :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

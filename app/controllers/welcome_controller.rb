@@ -105,5 +105,4 @@ class WelcomeController < ApplicationController
 		@sorted = @media.sort! { |a,b| a.id <=> b.id }
 		return @sorted.first.id
 	end
-
 end

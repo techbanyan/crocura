@@ -18,7 +18,6 @@ gem 'pg'
 gem 'twitter-bootstrap-rails'
 gem 'facets', :require=>false
 
-
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'less'

@@ -1,0 +1,68 @@
+.whitespace25
+.container-fluid
+	.row-fluid
+		.span12.photo-box			
+			.span7
+				.photo
+					= image_tag @photo.images.standard_resolution.url
+				.photo-box-details
+					.row-fluid
+						.span3
+							= link_to image_tag(@photo.user.profile_picture), user_path(@photo.user.id), :target => "_blank", :height => "150px", :width => "150px"
+						.span9
+							.row-fluid
+								.span12
+									=@photo.caption.text
+								.span12
+									=render :partial => "photos/share_buttons"
+					.row-fluid
+						.span12
+							#{link_to @photo.user.username, user_path(@photo.user.id), :target => "_blank", :class => "photo-box-details-username"}
+			.span5
+				.photo-box-likes-box
+					.row-fluid
+						.span12
+							#{@photo.likes[:count]} Likes
+							=link_to "Sign In with Instagram", "/auth/instagram"
+						.span12
+							.likes-digest
+								-likes = @photo.likes.data
+								-likes.each do |like|
+									=link_to (image_tag like.profile_picture, :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(like.id), :target => "_blank"
+								=link_to "Show More", "#", :class => "likes-digest-show-all", :remote => true
+							.likes-all
+								-likes = Instagram.media_likes(@photo[:id])
+								-likes.each do |like|
+									=link_to (image_tag like.profile_picture, :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(like.id), :target => "_blank"
+				.whitespace25
+				.photo-box-comments-box
+					.row-fluid
+						.span12
+							.comments-count-and-show-more
+								#{@photo.comments[:count]} Comments
+					.row-fluid
+						.span12
+							.comments-digest
+								-comments = @photo.comments.data
+								-comments.each do |comment|
+									.comment
+										.row-fluid
+											.span2
+												=link_to (image_tag comment.from.profile_picture, :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(comment.from.id), :target => "_blank"
+											.span10
+												#{link_to comment.from.username, user_path(comment.from.id), :target => "_blank", :class => "profile-username"} :
+												=comment.text
+								.comments-count-and-show-more
+									=link_to "Show More", "#", :class => "comments-digest-show-all", :remote => true
+							.comments-all
+								-comments = Instagram.media_comments(@photo[:id])
+								-comments.each do |comment|
+									.comment
+										.row-fluid
+											.span2
+												=link_to (image_tag comment.from.profile_picture, :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(comment.from.id), :target => "_blank"
+											.span10
+												#{link_to comment.from.username, user_path(comment.from.id), :target => "_blank", :class => "profile-username"} :
+												=comment.text
+
+
