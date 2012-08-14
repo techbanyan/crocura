@@ -37,6 +37,7 @@
 
 	.photo-box-likes-box {
 		padding: 5px;
+		padding-top: 10px;
 		font-size: 120%;
 		font-style: italic;
 		font-weight: bold;
@@ -107,5 +108,36 @@
 		display: inline-block;
 	}
 }
+
+.comment-and-like-box-container {
+	padding-top: 7%;
+	padding-left: 10px;
+	min-height: 60px;	
+	background: @blueDarkish;
+
+	textarea {
+		width: 67%; 
+		height: 28px;
+	}
+}
+
+.heart-empty {
+	i {
+		&:hover {
+			color: red;
+		}
+	}
+}
+
+.heart-full {
+	i {
+		&:hover {
+			color: gray;
+		}
+	}
+}
+
+
+
 
 

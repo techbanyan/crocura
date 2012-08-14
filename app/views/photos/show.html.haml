@@ -8,7 +8,8 @@
 						.photo
 							= image_tag @photo.images.standard_resolution.url
 					.span12
-						%strong=@photo.caption.text
+						-if @photo.caption.present?
+							%strong=@photo.caption.text
 				.photo-box-details
 					.row-fluid
 						.span3
@@ -25,47 +26,13 @@
 							.whitespace25
 
 			.span5
-				.photo-box-likes-box
-					.row-fluid
-						.span12
-							.span3
-								#{@photo.likes[:count]} Likes
-							.span9
-								-if current_user
-									=link_to '<div style="font-size: 35px;color: red;"><i class="icon-heart-empty"></i></div>'.html_safe, "#", :class => "like-icon"
-							=render :partial => "likes_show"
+				=render :partial => "likes", :locals => {:photo => @photo}
 				.whitespace10
 				.login-box
 					=render :partial => "photos/login_box"
+				.comment-and-like-box
+					=render :partial => "photos/comment_and_like_box", :locals => {:photo_id => @photo[:id]}
 				.whitespace10
-				.photo-box-comments-box
-					.row-fluid
-						.span12
-							.comments-count-and-show-more
-								#{@photo.comments[:count]} Comments
-					.row-fluid
-						.span12
-							.comments-digest
-								-comments = @photo.comments.data
-								-comments.each do |comment|
-									.comment
-										.row-fluid
-											.span2
-												=link_to (image_tag comment.from.profile_picture, :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(comment.from.id)
-											.span10
-												#{link_to comment.from.username, user_path(comment.from.id), :class => "profile-username"} :
-												=comment.text
-								.comments-count-and-show-more
-									=link_to "Show More", "#", :class => "comments-digest-show-all", :remote => true
-							.comments-all
-								-comments = Instagram.media_comments(@photo[:id])
-								-comments.each do |comment|
-									.comment
-										.row-fluid
-											.span2
-												=link_to (image_tag comment.from.profile_picture, :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(comment.from.id)
-											.span10
-												#{link_to comment.from.username, user_path(comment.from.id), :class => "profile-username"} :
-												=comment.text
+				=render :partial => "comments", :locals => {:photo => @photo}
 
 

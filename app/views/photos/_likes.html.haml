@@ -1,0 +1,14 @@
+.photo-box-likes-box
+	.row-fluid
+		.span12
+			.span3
+				#{photo.likes[:count]} Likes
+			.span1
+				-if current_user
+					-if photo.user_has_liked == FALSE
+						.heart-empty
+							=link_to '<div style="font-size: 35px;color: gray;"><i class="icon-heart"></i></div>'.html_safe, photos_like_path(:photo_id => photo[:id]), :class => "like-icon", :remote => true
+					-else
+						.heart-full
+							=link_to '<div style="font-size: 35px;color: red;"><i class="icon-heart"></i></div>'.html_safe, photos_like_path(:photo_id => photo[:id]), :class => "like-icon", :remote => true
+			=render :partial => "likes_show", :locals => {:photo => photo}

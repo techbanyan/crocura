@@ -41,7 +41,7 @@ class WelcomeController < ApplicationController
 				end
 					
 			else
-				@media = Instagram.media_popular(:count => 24)
+				@media = Instagram.media_popular(:count => 24, :access_token => session[:access_token])
 			end
 
 		    respond_with do |format|
@@ -84,7 +84,7 @@ class WelcomeController < ApplicationController
 					end
 				end
 			else
-				@media = Instagram.media_popular(:count => 24)
+				@media = Instagram.media_popular(:count => 24, :access_token => session[:access_token])
 			end
 
 		    respond_with do |format|

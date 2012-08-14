@@ -11,12 +11,13 @@ class SessionsController < ApplicationController
 		else
 			redirect_to root_url
 		end
-		flash[:success] = "Aloha, #{auth["info"]["username"]}"
+		flash[:success] = "Aloha, #{auth["info"]["nickname"]}"
 	end
 
 	def destroy
 		session[:user_id] = nil
 		session[:access_token] = nil
+		session[:return_to] = nil
 		redirect_to root_url
 		flash[:success] = "Bye!"
 	end
