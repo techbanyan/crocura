@@ -5,7 +5,7 @@
 				-photos.each do |photo|
 					.span4.stream-span
 						.thumb
-							=link_to image_tag(photo.images.low_resolution.url, :width => '265', :height => '265', :class => "thumb-decoration"), photo_path(photo.id), :target => "_blank"
+							=link_to image_tag(photo.images.low_resolution.url, :width => '265', :height => '265', :class => "thumb-decoration"), photo_path(photo.id)
 							.photo-hover-content-bottom
 								.row-fluid
 									.span12
@@ -13,7 +13,7 @@
 											%tr
 												%td
 													-if photo.caption.present?
-														=link_to image_tag(photo.caption.from.profile_picture, :alt => "", :width => '44', :height => '44', :class => "photo-hover-content-bottom-profile-image"), user_path(photo.caption.from.id), :target => "_blank"
+														=link_to image_tag(photo.caption.from.profile_picture, :alt => "", :width => '44', :height => '44', :class => "photo-hover-content-bottom-profile-image"), user_path(photo.caption.from.id)
 												%td(class = "photo-hover-content-bottom-details")
 													%table
 														%tr
