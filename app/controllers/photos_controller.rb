@@ -5,9 +5,14 @@ class PhotosController < ApplicationController
 		#begin
 			@photo = find_or_fetch_photo(params[:id])
 
-			respond_to do |format|
-  				format.html
-  				format.js { render :content_type => 'text/javascript' }
+			respond_with do |format|
+				format.html do
+					if request.xhr?
+						render :partial => "photos/show_in_partial", :locals => { :photo => @photo }, :layout => false, :status => :created
+					else
+						redirect_to photo_path(params[:photo_id])
+					end
+				end
 			end
 		#rescue
 		#	flash[:error] = "Sorry! This photo is not found."
