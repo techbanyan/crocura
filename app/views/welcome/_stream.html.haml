@@ -5,7 +5,8 @@
 				-photos.each do |photo|
 					.span4.stream-span
 						.thumb
-							=link_to image_tag(photo.images.low_resolution.url, :width => '265', :height => '265', :class => "thumb-decoration"), photo_path(photo.id)
+							/ =link_to image_tag(photo.images.low_resolution.url, :width => '265', :height => '265', :class => "thumb-decoration"), photo_path(photo.id)
+							= link_to image_tag(photo.images.low_resolution.url, :width => '265', :height => '265', :class => "thumb-decoration"), photo_path(photo.id), :class => "thumb-click-modal", :remote => true
 							.photo-hover-content-bottom
 								.row-fluid
 									.span12
@@ -25,6 +26,7 @@
 															%td
 																%i(class="icon-comment")
 																=photo.comments[:count]
+.photo-popup
 
 												
 

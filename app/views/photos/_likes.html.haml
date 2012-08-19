@@ -2,13 +2,13 @@
 	.row-fluid
 		.span12
 			.span3
-				#{photo.likes[:count]} Likes
+				#{photo["likes"]["count"]} Likes
 			.span1
 				-if current_user
-					-if photo.user_has_liked == FALSE
+					-if photo["user_has_liked"] == FALSE || photo["user_has_liked"] == "false"
 						.heart-empty
-							=link_to '<div style="font-size: 35px;color: gray;"><i class="icon-heart"></i></div>'.html_safe, photos_like_path(:photo_id => photo[:id]), :class => "like-icon", :remote => true
-					-else
+							=link_to '<div style="font-size: 35px;color: gray;"><i class="icon-heart"></i></div>'.html_safe, photos_like_path(:photo_id => photo["id"]), :class => "like-icon", :remote => true
+					-elsif photo["user_has_liked"] == TRUE || photo["user_has_liked"] == "true"
 						.heart-full
-							=link_to '<div style="font-size: 35px;color: red;"><i class="icon-heart"></i></div>'.html_safe, photos_like_path(:photo_id => photo[:id]), :class => "like-icon", :remote => true
-			=render :partial => "likes_show", :locals => {:photo => photo}
+							=link_to '<div style="font-size: 35px;color: red;"><i class="icon-heart"></i></div>'.html_safe, photos_like_path(:photo_id => photo["id"]), :class => "like-icon", :remote => true
+			=render :partial => "photos/likes_show", :locals => {:photo_id => photo["id"], :likes => photo["likes"]["data"]}

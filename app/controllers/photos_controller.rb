@@ -3,7 +3,12 @@ class PhotosController < ApplicationController
 
 	def show
 		#begin
-			@photo = Instagram.media_item(params[:id], :access_token => session[:access_token])
+			@photo = find_or_fetch_photo(params[:id])
+
+			respond_to do |format|
+  				format.html
+  				format.js { render :content_type => 'text/javascript' }
+			end
 		#rescue
 		#	flash[:error] = "Sorry! This photo is not found."
 		#	redirect_to root_url
@@ -41,6 +46,7 @@ class PhotosController < ApplicationController
 			if @photo.user_has_liked == FALSE
 				Instagram.like_media(params[:photo_id], :access_token => session[:access_token])
 				@photo = Instagram.media_item(params[:photo_id], :access_token => session[:access_token])
+				update_photo(@photo)
 				respond_with do |format|
 					format.html do
 						if request.xhr?
@@ -53,6 +59,7 @@ class PhotosController < ApplicationController
 			else
 				Instagram.unlike_media(params[:photo_id], :access_token => session[:access_token])
 				@photo = Instagram.media_item(params[:photo_id], :access_token => session[:access_token])
+				update_photo(@photo)
 				respond_with do |format|
 					format.html do
 						if request.xhr?
@@ -67,5 +74,51 @@ class PhotosController < ApplicationController
 		# 	flash[:error] = "Sorry! You are not authorized to visit this page."
 		# 	redirect_to root_url
 		# end
+	end
+
+	def get_all_likes
+		@likes = Instagram.media_likes(params[:photo_id])
+		respond_with do |format|
+			format.html do
+				if request.xhr?
+					render :partial => "photos/likes_show", :locals => { :likes => @likes, :photo_id => params[:photo_id] }, :layout => false, :status => :created
+				else
+					redirect_to photo_path(params[:id])
+				end
+			end
+		end
+	end
+
+	def get_all_comments
+		@comments = Instagram.media_comments(params[:photo_id])
+		respond_with do |format|
+			format.html do
+				if request.xhr?
+					render :partial => "photos/comments_show", :locals => { :comments => @comments, :photo_id => params[:photo_id] }, :layout => false, :status => :created
+				else
+					redirect_to photo_path(params[:id])
+				end
+			end
+		end
+	end
+
+	protected
+
+	def find_or_fetch_photo(photo_id)
+		@photo = Photo.find_by_number(photo_id)
+		if @photo.nil?
+			return @photo = Instagram.media_item(photo_id, :access_token => session[:access_token])
+		else
+			return @photo = @photo.data
+		end
+	end
+
+	def update_photo(photo)
+		old_photo = Photo.find_by_number(photo[:id])
+		if old_photo
+			old_photo.number = photo[:id]
+			old_photo.data = photo
+			old_photo.save!
+		end
 	end
 end

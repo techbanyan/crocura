@@ -5,25 +5,4 @@
 				#{photo["comments"]["count"]} Comments
 	.row-fluid
 		.span12
-			.comments-digest
-				-comments = photo["comments"]["data"]
-				-comments.each do |comment|
-					.comment
-						.row-fluid
-							.span2
-								=link_to (image_tag comment.from.profile_picture, :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(comment.from.id)
-							.span10
-								#{link_to comment["from"]["username"], user_path(comment["from"]["id"]), :class => "profile-username"} :
-								=comment["text"]
-				.comments-count-and-show-more
-					=link_to "Show More", "#", :class => "comments-digest-show-all", :remote => true
-			.comments-all
-				-comments = Instagram.media_comments(photo[:id])
-				-comments.each do |comment|
-					.comment
-						.row-fluid
-							.span2
-								=link_to image_tag(comment.from.profile_picture, :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(comment.from.id)
-							.span10
-								#{link_to comment.from.username, user_path(comment.from.id), :class => "profile-username"} :
-								=comment.text
+			=render :partial => "comments_show", :locals => {:photo_id => photo["id"], :comments => photo["comments"]["data"]}

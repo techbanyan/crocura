@@ -19,22 +19,21 @@ class WelcomeController < ApplicationController
 					@longitude = params[:longitude]
 					@query = params[:query]
 					media_packet = Instagram.media_search(@latitude, @longitude, :count => 40)
-					#raise media_packet = Instagram.location_recent_media(514276).to_yaml
 					@media = media_packet.data
-					#@max_id = get_max_id
-					#@next_url = media_packet.pagination.next_url
-					#Rails.cache.write('next_url', @next_url)
+					create_photos(media_packet.data)
 					@max_tag_id = get_max_id
 					Rails.cache.write('max_tag_id', @max_tag_id)
 				elsif @querytype == "tag"
 					@query = params[:query]
 					media_packet = Instagram.tag_recent_media(@query, :count => 24)
+					create_photos(media_packet.data)
 					@media = media_packet.data
 					@max_tag_id = media_packet.pagination.next_max_tag_id
 					Rails.cache.write('max_tag_id', @max_tag_id)
 				elsif @querytype == "user"
 					client = Instagram.client(:access_token => session[:access_token])
     				media_packet = client.user_recent_media
+    				create_photos(media_packet.data)
     				@media = media_packet.data
     				@max_id = media_packet.pagination.next_max_id
 					Rails.cache.write('max_id', @max_id)
@@ -42,6 +41,7 @@ class WelcomeController < ApplicationController
 					
 			else
 				@media = Instagram.media_popular(:count => 24, :access_token => session[:access_token])
+				create_photos(@media)
 			end
 
 		    respond_with do |format|
@@ -62,6 +62,7 @@ class WelcomeController < ApplicationController
 					@query = params[:query]
 					#media_packet = Instagram.get(@next_url)
 					media_packet = Instagram.media_search(@latitude, @longitude, :count => 40, :max_tag_id => @max_tag_id)
+					create_photos(media_packet.data)
 					@media = media_packet.data
 					@max_tag_id = get_max_id
 					Rails.cache.write('max_tag_id', @max_tag_id)
@@ -69,6 +70,7 @@ class WelcomeController < ApplicationController
 					@max_tag_id ||= Rails.cache.fetch('max_tag_id')
 					@query = params[:query]
 					media_packet = Instagram.tag_recent_media(@query, :count => 24, :max_tag_id => @max_tag_id)
+					create_photos(media_packet.data)
 					@media = media_packet.data
 					@max_tag_id = media_packet.pagination.next_max_tag_id
 					Rails.cache.write('max_tag_id', @max_tag_id)
@@ -78,6 +80,7 @@ class WelcomeController < ApplicationController
 						@query = params[:query]
 						client = Instagram.client(:access_token => session[:access_token])
 	    				media_packet = client.user_recent_media(:max_id => @max_id)
+						create_photos(media_packet.data)
 						@media = media_packet.data
 						@max_id = media_packet.pagination.next_max_id
 						Rails.cache.write('max_id', @max_id)
@@ -85,6 +88,7 @@ class WelcomeController < ApplicationController
 				end
 			else
 				@media = Instagram.media_popular(:count => 24, :access_token => session[:access_token])
+				create_photos(@media)
 			end
 
 		    respond_with do |format|
@@ -97,6 +101,8 @@ class WelcomeController < ApplicationController
 		end
 	end
 
+	protected
+
 	def get_max_id
 		@media.each do |media|
 			media.id = media.id[/[^_]+/]
@@ -104,5 +110,17 @@ class WelcomeController < ApplicationController
 
 		@sorted = @media.sort! { |a,b| a.id <=> b.id }
 		return @sorted.first.id
+	end
+
+	def create_photos(media)
+		media.each do |photo|
+			check_photo = Photo.find_by_number(photo[:id])
+			if check_photo.nil?
+				@photo = Photo.new
+				@photo.number = photo[:id]
+				@photo.data = photo
+				@photo.save!
+			end
+		end
 	end
 end

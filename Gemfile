@@ -22,6 +22,8 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'less'
 gem 'less-rails-bootstrap'
+gem 'fancybox-rails'
+gem 'thin'
 
 gem 'rspec-rails', :group => [:test, :development]
 

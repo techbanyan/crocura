@@ -13,6 +13,8 @@ Crocura::Application.routes.draw do
   match "stream_container" => "welcome#stream_container"
   match "photos/comment" => "photos#comment"
   match "photos/like" => "photos#like"
+  match "photos/get_all_likes" => "photos#get_all_likes"
+  match "photos/get_all_comments" => "photos#get_all_comments"
 
   resources :photos
   resources :users
