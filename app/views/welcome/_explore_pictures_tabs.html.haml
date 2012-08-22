@@ -9,10 +9,9 @@
 						=link_to "#{current_user.username}", root_url(:querytype => "user"), :class => "explore-pictures-tabs", :remote => true
 				%li
 					=link_to "Popular", root_url, :class => "explore-pictures-tabs", :remote => true
-				%li
-					=link_to "London (Location Based)", root_url(:querytype => "location", :query => "london", :latitude => "51.50722", :longitude => "-0.12750"), :class => "explore-pictures-tabs", :remote => true
-				%li
-					=link_to "London (tag based)", root_url(:querytype => "tag", :query => "london"), :class => "explore-pictures-tabs", :remote => true
-				%li
-					=link_to "Chocolate", root_url(:querytype => "tag", :query => "chocolate"), :class => "explore-pictures-tabs", :remote => true
+				/ %li
+				/ 	=link_to "London (Location Based)", root_url(:querytype => "location", :query => "london", :latitude => "51.50722", :longitude => "-0.12750"), :class => "explore-pictures-tabs", :remote => true
+				-@tabs.each do |tab|
+					%li
+						=link_to tab.query, root_url(:querytype => tab.query_type, :query => tab.query, :latitude => tab.latitude.to_s, :longitude => tab.longitude.to_s), :class => "explore-pictures-tabs", :remote => true
 					

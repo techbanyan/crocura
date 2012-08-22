@@ -12,7 +12,6 @@ gem 'omniauth-instagram'
 gem 'omniauth-oauth2', '1.0.3'
 #gem 'instagram', :git => 'git://github.com/Instagram/instagram-ruby-gem.git'
 gem "instagram", :git => 'git://github.com/abhijeetmisra/instagram-ruby-gem.git'
-gem 'will_paginate'
 gem 'json'
 gem 'pg'
 gem 'twitter-bootstrap-rails'
@@ -24,6 +23,10 @@ gem 'less'
 gem 'less-rails-bootstrap'
 gem 'fancybox-rails'
 gem 'thin'
+gem 'activeadmin'
+gem "meta_search",    '>= 1.1.0.pre'
+gem "formtastic", "~> 2.1.1"
+gem "geocoder"
 
 gem 'rspec-rails', :group => [:test, :development]
 

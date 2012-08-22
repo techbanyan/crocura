@@ -6,6 +6,7 @@ class WelcomeController < ApplicationController
 
 	def index
 		@show_more_data = false
+		@tabs = Tab.find(:all, :order => "rank")
 		stream_container
 	end
 
@@ -56,16 +57,23 @@ class WelcomeController < ApplicationController
 			@querytype = params[:querytype]
 			if @querytype.present?
 				if @querytype == "location" ## PLease note that Location doesn't have pagination (next_url)
-					@max_tag_id ||=  Rails.cache.fetch('max_tag_id')
-					@latitude = params[:latitude]
-					@longitude = params[:longitude]
+					# @max_tag_id ||=  Rails.cache.fetch('max_tag_id')
+					# @latitude = params[:latitude]
+					# @longitude = params[:longitude]
+					# @query = params[:query]
+					# #media_packet = Instagram.get(@next_url)
+					# media_packet = Instagram.media_search(@latitude, @longitude, :count => 40, :max_tag_id => @max_tag_id)
+					# create_photos(media_packet.data)
+					# @media = media_packet.data
+					# @max_tag_id = get_max_id
+					# Rails.cache.write('max_tag_id', @max_tag_id)
+					@max_tag_id ||= Rails.cache.fetch('max_tag_id')
 					@query = params[:query]
-					#media_packet = Instagram.get(@next_url)
-					media_packet = Instagram.media_search(@latitude, @longitude, :count => 40, :max_tag_id => @max_tag_id)
+					media_packet = Instagram.tag_recent_media(@query.gsub(/\s+/, ""), :count => 24, :max_tag_id => @max_tag_id)
 					create_photos(media_packet.data)
 					@media = media_packet.data
-					@max_tag_id = get_max_id
-					Rails.cache.write('max_tag_id', @max_tag_id)
+					@max_tag_id = media_packet.pagination.next_max_tag_id
+					Rails.cache.write('max_tag_id', @max_tag_id)					
 				elsif @querytype == "tag"
 					@max_tag_id ||= Rails.cache.fetch('max_tag_id')
 					@query = params[:query]

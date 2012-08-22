@@ -25,3 +25,4 @@ production:
   database: crocura_production
   pool: 5
   timeout: 5000
+  host: localhost
