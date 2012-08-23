@@ -9,8 +9,6 @@ class PhotosController < ApplicationController
 				format.html do
 					if request.xhr?
 						render :partial => "photos/show_in_partial", :locals => { :photo => @photo }, :layout => false, :status => :created
-					else
-						redirect_to photo_path(params[:photo_id])
 					end
 				end
 			end
