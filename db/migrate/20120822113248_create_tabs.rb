@@ -1,6 +1,7 @@
 class CreateTabs < ActiveRecord::Migration
   def change
     create_table :tabs do |t|
+      t.string :query_name
       t.string :query
       t.string :query_type
       t.float :latitude

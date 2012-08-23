@@ -1,5 +1,7 @@
 Crocura::Application.routes.draw do
 
+  mount Rich::Engine => '/rich', :as => 'rich'
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config

@@ -27,6 +27,7 @@ gem 'activeadmin'
 gem "meta_search",    '>= 1.1.0.pre'
 gem "formtastic", "~> 2.1.1"
 gem "geocoder"
+gem "rich"
 
 gem 'rspec-rails', :group => [:test, :development]
 
