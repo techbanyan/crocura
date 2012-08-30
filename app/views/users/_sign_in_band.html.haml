@@ -1,9 +1,9 @@
--if !current_user
-	.whitespace50
-	.whitespace50
-	.container-fluid
-		.row-fluid
-			.span12.custom-middle-header-container.customize-sign-in-band
-				%ul(class="middle-header")
-					%li=link_to image_tag("sign-in-with-instagram.png"), "/auth/instagram"
-					%li to view pictures of the user 
+.whitespace50
+.whitespace50
+.container-fluid
+	.row-fluid
+		.span12.custom-middle-header-container.customize-sign-in-band
+			%ul(class="middle-header")
+				-session[:return_to] = "#{request.protocol + request.host}:#{request.port.to_s + request.fullpath}"
+				%li=link_to image_tag("sign-in-with-instagram.png"), "/auth/instagram"
+				%li to view pictures of the user 

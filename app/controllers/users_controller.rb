@@ -1,5 +1,7 @@
+require 'facets/enumerable/each_by'
 class UsersController < ApplicationController
 	respond_to :html, :xml, :json
+	before_filter :check_if_signed_in, :only => [:follow_user, :unfollow_user]
 
 	def index
 		flash[:error] = "Sorry! You are not authorized to view the page"
@@ -76,6 +78,25 @@ class UsersController < ApplicationController
 		    	end
 		    end
 		    return
+		end
+	end
+
+	def unfollow_user
+		Instagram.unfollow_user(params[:user_id], :access_token => session[:access_token])
+		redirect_to user_path(params[:username])
+	end
+
+	def follow_user
+		Instagram.follow_user(params[:user_id], :access_token => session[:access_token])
+		redirect_to user_path(params[:username])
+	end
+
+	protected
+
+	def check_if_signed_in
+		if !current_user
+			flash[:error] = "You are not authorized to view this page!"
+			redirect_to root_url
 		end
 	end
 end

@@ -2,6 +2,7 @@
 	.container-fluid
 		.row-fluid.header-template-container
 			.span12
+				-@user
 				-if @user.profile_picture.present?
 					=image_tag @user.profile_picture, :height => "100px", :width => "100px", :class=> "brand"
 				.brand.profile-template-custom-styling
@@ -34,8 +35,8 @@
 					%li
 						-if @user_relationship
 							-if @user_relationship.outgoing_status == "follows"
-								=link_to "Following", "#", :class => "follow-unfollow-button unfollow"
+								=link_to "Following", unfollow_user_path(:username => @user.username, :user_id => @user[:id]), :class => "follow-unfollow-button unfollow"
 							-elsif @user_relationship.outgoing_status == "none"
-								=link_to "Follow", "#", :class => "follow-unfollow-button follow"
+								=link_to "Follow", follow_user_path(:username => @user.username, :user_id => @user[:id]), :class => "follow-unfollow-button follow"
 
 

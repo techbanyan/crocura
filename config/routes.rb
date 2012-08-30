@@ -29,7 +29,10 @@ Crocura::Application.routes.draw do
   resources :photos
   resources :users
 
-  match '/:id' => 'users#show', :as => :user
+  match "unfollow_user" => "users#unfollow_user"
+  match "follow_user" => "users#follow_user"
+
+  match '/:id' => 'users#show', :as => :user # NOTE - this should always be last
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

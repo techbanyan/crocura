@@ -1,12 +1,12 @@
 $(document).ready(function(){
 
-	$('.unfollow-button').bind('mouseover', function() {
-	   $('.unfollow-button').css('color', 'white');
-	   $('.unfollow-button').text('Unfollow');
+	$('.unfollow').bind('mouseover', function() {
+	   $('.unfollow').css('color', 'white');
+	   $('.unfollow').text('Unfollow');
 	})
-	$('.unfollow-button').bind('mouseout', function() {
-	   $('.unfollow-button').css('color', 'white');
-	   $('.unfollow-button').text('Following');
+	$('.unfollow').bind('mouseout', function() {
+	   $('.unfollow').css('color', 'black');
+	   $('.unfollow').text('Following');
 	})
 
 });
