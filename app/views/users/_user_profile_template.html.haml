@@ -1,0 +1,41 @@
+.navbar.another-nav
+	.container-fluid
+		.row-fluid.header-template-container
+			.span12
+				-if @user.profile_picture.present?
+					=image_tag @user.profile_picture, :height => "100px", :width => "100px", :class=> "brand"
+				.brand.profile-template-custom-styling
+					=@user.username
+				%ul(class="nav")
+					%li
+						%table
+							%tr
+								%td
+									Photos
+							%tr
+								%td
+									=link_to "#{@user.counts.media}", "#"
+					%li
+						%table
+							%tr
+								%td
+									Followers
+							%tr
+								%td
+									=link_to "#{@user.counts.followed_by}", "#"
+					%li
+						%table
+							%tr
+								%td
+									Following
+							%tr
+								%td
+									=link_to "#{@user.counts.follows}", "#"
+					%li
+						-if @user_relationship
+							-if @user_relationship.outgoing_status == "follows"
+								=link_to "Following", "#", :class => "follow-unfollow-button unfollow"
+							-elsif @user_relationship.outgoing_status == "none"
+								=link_to "Follow", "#", :class => "follow-unfollow-button follow"
+
+

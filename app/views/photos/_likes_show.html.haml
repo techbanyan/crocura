@@ -2,5 +2,5 @@
 	.span12
 		//-likes = photo["likes"]["data"]			
 		-likes.each do |like|
-			=link_to (image_tag like["profile_picture"], :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(like["id"])
+			=link_to (image_tag like["profile_picture"], :width => "50px", :height => "50px", :alt => "", :class => "profile-picture-thumb"), user_path(like["username"])
 		=link_to "Show More", photos_get_all_likes_path(:photo_id => photo_id), :class => "likes-digest-show-all", :remote => true

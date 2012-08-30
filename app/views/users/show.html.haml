@@ -1,1 +1,9 @@
-This is User's profile page
+=render :partial => "users/user_profile_template"
+=render :partial => "users/sign_in_band"
+.whitespace25
+= render :partial => "users/users_stream_container", :locals => {:media => @media, :username => @username}
+.container-fluid
+	.row-fluid
+		.span4
+		.span8
+			=image_tag "loading.gif", :class => "loading-stream", :width => '200', :height => '200'

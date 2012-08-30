@@ -15,9 +15,9 @@
 						.span3
 							.row-fluid
 								.span12
-									= link_to image_tag(@photo["user"]["profile_picture"]), user_path(@photo["user"]["id"]), :height => "150px", :width => "150px"
+									= link_to image_tag(@photo["user"]["profile_picture"]), user_path(@photo["user"]["username"]), :height => "150px", :width => "150px"
 								.span12
-									#{link_to @photo["user"]["username"], user_path(@photo["user"]["id"]), :class => "photo-box-details-username"}
+									#{link_to @photo["user"]["username"], user_path(@photo["user"]["username"]), :class => "photo-box-details-username"}
 						.span9
 							.row-fluid
 								.span7

@@ -17,6 +17,10 @@ Crocura::Application.routes.draw do
 
   match "stream" => "welcome#stream"
   match "stream_container" => "welcome#stream_container"
+
+  match "users_stream" => "users#users_stream"
+  match "users_stream_container" => "users#users_stream_container"
+
   match "photos/comment" => "photos#comment"
   match "photos/like" => "photos#like"
   match "photos/get_all_likes" => "photos#get_all_likes"
@@ -24,6 +28,8 @@ Crocura::Application.routes.draw do
 
   resources :photos
   resources :users
+
+  match '/:id' => 'users#show', :as => :user
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
