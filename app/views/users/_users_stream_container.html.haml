@@ -1,4 +1,11 @@
 .stream-container
-	=render :partial => "users/stream", :locals => { :media => media }
-	.whitespace25
-	=render :partial => "users/show_more_bar", :locals => {:username => username}
+	-if current_user && @query == NIL
+		.whitespace50
+		=render :partial => "users/stream", :locals => { :media => media }
+		.whitespace25
+		=render :partial => "users/show_more_bar", :locals => {:id => @user_id, :query => @query}
+	-elsif @query == "followers" || @query == "following"
+		.whitespace50
+		=render :partial => "users/followers_following_stream", :locals => {:media => media}
+		.whitespace25
+		=render :partial => "users/show_more_bar", :locals => {:id => @user_id, :query => @query}

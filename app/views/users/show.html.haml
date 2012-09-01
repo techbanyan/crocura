@@ -1,11 +1,9 @@
 =render :partial => "users/user_profile_template"
-- if !current_user
+- if !current_user && @query == NIL
 	=render :partial => "users/sign_in_band"
--elsif current_user
-	.whitespace25
-	= render :partial => "users/users_stream_container", :locals => {:media => @media, :username => @username}
-	.container-fluid
-		.row-fluid
-			.span4
-			.span8
-				=image_tag "loading.gif", :class => "loading-stream", :width => '200', :height => '200'
+= render :partial => "users/users_stream_container", :locals => {:media => @media, :user_id => @user_id}
+.container-fluid
+	.row-fluid
+		.span4
+		.span8
+			=image_tag "loading.gif", :class => "loading-stream", :width => '200', :height => '200'

@@ -8,9 +8,6 @@ $(document).ready(function(){
 	      $(document).find(".stream-container").fadeOut(500);
 	      $(document).find(".show-more-bar").fadeOut(500);
 	      $(document).find(".loading-stream").show();
-
-
-
 	    })
 
 		.live("ajax:success", function(evt, data, status, xhr){

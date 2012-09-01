@@ -15,7 +15,7 @@
 									Photos
 							%tr
 								%td
-									=link_to "#{@user.counts.media}", "#"
+									=link_to "#{@user.counts.media}", user_path, :class => "explore-pictures-tabs", :remote => true
 					%li
 						%table
 							%tr
@@ -23,7 +23,7 @@
 									Followers
 							%tr
 								%td
-									=link_to "#{@user.counts.followed_by}", "#"
+									=link_to "#{@user.counts.followed_by}", user_path(:id => @user[:id], :query => "followers"), :class => "explore-pictures-tabs", :remote => true
 					%li
 						%table
 							%tr
@@ -31,7 +31,7 @@
 									Following
 							%tr
 								%td
-									=link_to "#{@user.counts.follows}", "#"
+									=link_to "#{@user.counts.follows}", user_path(:id => @user[:id], :query => "following"), :class => "explore-pictures-tabs", :remote => true
 					%li
 						-if @user_relationship
 							-if @user_relationship.outgoing_status == "follows"
