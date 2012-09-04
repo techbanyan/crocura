@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :provider, :uid, :username
 
+  has_many :user_stream_photos, :dependent => :destroy
+
   def self.create_with_omniauth(auth)
   	create! do |user|
   		user.provider = auth["provider"]

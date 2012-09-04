@@ -108,20 +108,38 @@ class PhotosController < ApplicationController
 	protected
 
 	def find_or_fetch_photo(photo_id)
-		@photo = Photo.find_by_number(photo_id)
-		if @photo.nil?
-			return @photo = Instagram.media_item(photo_id, :access_token => session[:access_token])
+		if current_user
+			@photo = current_user.user_stream_photos.find_by_number(photo_id)
+			if @photo.nil?
+				return @photo = Instagram.media_item(photo_id, :access_token => session[:access_token])
+			else
+				return @photo = @photo.data
+			end			
 		else
-			return @photo = @photo.data
+			@photo = Photo.find_by_number(photo_id)
+			if @photo.nil?
+				return @photo = Instagram.media_item(photo_id, :access_token => session[:access_token])
+			else
+				return @photo = @photo.data
+			end
 		end
 	end
 
 	def update_photo(photo)
-		old_photo = Photo.find_by_number(photo[:id])
-		if old_photo
-			old_photo.number = photo[:id]
-			old_photo.data = photo
-			old_photo.save!
+		if current_user
+			old_photo = current_user.user_stream_photos.find_by_number(photo[:id])
+			if old_photo
+				old_photo.number = photo[:id]
+				old_photo.data = photo
+				old_photo.save!
+			end
+		else
+			old_photo = Photo.find_by_number(photo[:id])
+			if old_photo
+				old_photo.number = photo[:id]
+				old_photo.data = photo
+				old_photo.save!
+			end
 		end
 	end
 end

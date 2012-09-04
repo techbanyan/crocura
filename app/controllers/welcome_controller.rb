@@ -19,14 +19,14 @@ class WelcomeController < ApplicationController
 					@latitude = params[:latitude]
 					@longitude = params[:longitude]
 					@query = params[:query]
-					media_packet = Instagram.media_search(@latitude, @longitude, :count => 40)
+					media_packet = Instagram.media_search(@latitude, @longitude, :count => 40, :access_token => session[:access_token])
 					@media = media_packet.data
 					create_photos(media_packet.data)
 					@max_tag_id = get_max_id
 					Rails.cache.write('max_tag_id', @max_tag_id)
 				elsif @querytype == "tag"
 					@query = params[:query]
-					media_packet = Instagram.tag_recent_media(@query, :count => 24)
+					media_packet = Instagram.tag_recent_media(@query, :count => 24, :access_token => session[:access_token])
 					create_photos(media_packet.data)
 					@media = media_packet.data
 					@max_tag_id = media_packet.pagination.next_max_tag_id
@@ -69,7 +69,7 @@ class WelcomeController < ApplicationController
 					# Rails.cache.write('max_tag_id', @max_tag_id)
 					@max_tag_id ||= Rails.cache.fetch('max_tag_id')
 					@query = params[:query]
-					media_packet = Instagram.tag_recent_media(@query.gsub(/\s+/, ""), :count => 24, :max_tag_id => @max_tag_id)
+					media_packet = Instagram.tag_recent_media(@query.gsub(/\s+/, ""), :count => 24, :max_tag_id => @max_tag_id, :access_token => session[:access_token])
 					create_photos(media_packet.data)
 					@media = media_packet.data
 					@max_tag_id = media_packet.pagination.next_max_tag_id
@@ -77,7 +77,7 @@ class WelcomeController < ApplicationController
 				elsif @querytype == "tag"
 					@max_tag_id ||= Rails.cache.fetch('max_tag_id')
 					@query = params[:query]
-					media_packet = Instagram.tag_recent_media(@query, :count => 24, :max_tag_id => @max_tag_id)
+					media_packet = Instagram.tag_recent_media(@query, :count => 24, :max_tag_id => @max_tag_id, :access_token => session[:access_token])
 					create_photos(media_packet.data)
 					@media = media_packet.data
 					@max_tag_id = media_packet.pagination.next_max_tag_id
@@ -121,10 +121,27 @@ class WelcomeController < ApplicationController
 	end
 
 	def create_photos(media)
-		media.each do |photo|
-			check_photo = Photo.find_by_number(photo[:id])
-			if check_photo.nil?
-				@photo = Photo.new
+		if current_user
+			media.each do |photo|
+				check_photo = current_user.user_stream_photos.find_by_number(photo[:id])
+				if check_photo.nil?
+					@photo = UserStreamPhoto.new
+					@photo.user_id = current_user.id
+				else
+					@photo = check_photo
+				end
+				@photo.number = photo[:id]
+				@photo.data = photo
+				@photo.save!
+			end			
+		else
+			media.each do |photo|
+				check_photo = Photo.find_by_number(photo[:id])
+				if check_photo.nil?
+					@photo = Photo.new
+				else
+					@photo = check_photo
+				end
 				@photo.number = photo[:id]
 				@photo.data = photo
 				@photo.save!
