@@ -11,6 +11,7 @@
 							-if current_user
 								= link_to "Logout", signout_path
 							-else
+								-session[:return_to] = "#{request.protocol + request.host}:#{request.port.to_s + request.fullpath}"
 								=link_to "Sign In with Instagram", "/auth/instagram"
 					%ul(class="nav header-top pull-right")
 						%li
