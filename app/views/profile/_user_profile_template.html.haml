@@ -1,0 +1,38 @@
+.navbar.another-nav
+	.container-fluid
+		.row-fluid.profile-template-container
+			.span12
+				-if @user.profile_picture.present?
+					=image_tag @user.profile_picture, :height => "100px", :width => "100px", :class=> "brand"
+				%ul(class="nav")
+					%li
+						=link_to "My Feed", profile_path(:id => @user[:id], :query => "feed"), :class => "profile-my-feed-button explore-pictures-tabs", :remote => true
+					%li
+						=link_to "My Likes", profile_path(:id => @user[:id], :query => "likes"), :class => "profile-my-likes-button explore-pictures-tabs", :remote => true
+				%ul(class="nav pull-right")
+					%li
+						%table
+							%tr
+								%td
+									Photos
+							%tr
+								%td
+									=link_to "#{@user.counts.media}", profile_path, :class => "explore-pictures-tabs", :remote => true
+					%li
+						%table
+							%tr
+								%td
+									Followers
+							%tr
+								%td
+									=link_to "#{@user.counts.followed_by}", profile_path(:id => @user[:id], :query => "followers"), :class => "explore-pictures-tabs", :remote => true
+					%li
+						%table
+							%tr
+								%td
+									Following
+							%tr
+								%td
+									=link_to "#{@user.counts.follows}", profile_path(:id => @user[:id], :query => "following"), :class => "explore-pictures-tabs", :remote => true
+
+

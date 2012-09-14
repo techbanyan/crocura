@@ -9,6 +9,9 @@
 							=link_to "How it Works", how_it_works_path
 						%li
 							-if current_user
+								=link_to "My Feed and Likes", profile_path, :class => "header-top-my-profile-link"
+						%li
+							-if current_user
 								= link_to "Logout", signout_path
 							-else
 								-session[:return_to] = "#{request.protocol + request.host}:#{request.port.to_s + request.fullpath}"
@@ -21,4 +24,4 @@
 						%li
 							=link_to "About", about_path
 						%li
-							=link_to "Blog", "#"
+							=link_to "Blog", "http://blog.crocura.com", :target => "_blank"

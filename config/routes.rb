@@ -21,6 +21,9 @@ Crocura::Application.routes.draw do
   match "users_stream" => "users#users_stream"
   match "users_stream_container" => "users#users_stream_container"
 
+  match "profile_stream" => "profile#profile_stream"
+  match "profile_stream_container" => "profile#profile_stream_container"
+
   match "photos/comment" => "photos#comment"
   match "photos/like" => "photos#like"
   match "photos/get_all_likes" => "photos#get_all_likes"
@@ -31,6 +34,8 @@ Crocura::Application.routes.draw do
 
   match "unfollow_user" => "users#unfollow_user"
   match "follow_user" => "users#follow_user"
+
+  match "profile" => "profile#show"
 
   match '/:id' => 'users#show', :as => :user # NOTE - this should always be last
 

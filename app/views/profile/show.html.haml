@@ -1,0 +1,7 @@
+=render :partial => "profile/user_profile_template"
+= render :partial => "profile/profile_stream_container", :locals => {:media => @media, :user_id => @user_id}
+.container-fluid
+	.row-fluid
+		.span4
+		.span8
+			=image_tag "loading.gif", :class => "loading-stream", :width => '200', :height => '200'
