@@ -59,7 +59,7 @@ class ProfileController < ApplicationController
 				end
 			else		
 				@user_id = current_user.uid
-				@user = Instagram.user(current_user.uid)
+				@user = Instagram.user(current_user.uid, :access_token => session[:access_token])
 				media_packet = Instagram.user_recent_media(current_user.uid, :access_token => session[:access_token], :count => 18)
 				@next_max_id = media_packet.pagination.next_max_id
 				Rails.cache.write('next_max_id', @next_max_id)
