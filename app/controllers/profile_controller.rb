@@ -34,7 +34,7 @@ class ProfileController < ApplicationController
 						flash[:error] = "User #{current_user.username} is not found"
 						redirect_to root_url
 					end
-				elsif @query = "feed"
+				elsif @query == "feed"
 					@user_id = current_user.uid
 					media_packet = Instagram.user_media_feed(:access_token => session[:access_token], :count => 28)
 					if media_packet.data.present?
@@ -45,7 +45,7 @@ class ProfileController < ApplicationController
 						flash[:error] = "No Feed found"
 						redirect_to root_url
 					end					
-				elsif @query = "likes"
+				elsif @query == "likes"
 					@user_id = current_user.uid
 					media_packet = Instagram.user_liked_media(:access_token => session[:access_token], :count => 28)
 					if media_packet.data.present?
