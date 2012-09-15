@@ -9,12 +9,12 @@ class ApplicationController < ActionController::Base
   		@current_user ||= User.find(session[:user_id]) if session[:user_id]
   	end
 
-  	def redirect_www_to_root
-  		host = request.host.gsub(/www./,”)
+ #  	def redirect_www_to_root
+ #  		host = request.host.gsub(/www./,”)
 
-    	if /^www/.match(request.host) 
-    		new_url = "#{request.protocol}#{host}#{request.request_uri}" 
-    		redirect_to(new_url, :status => 301) 
-    	end
-	end
+ #    	if /^www/.match(request.host) 
+ #    		new_url = "#{request.protocol}#{host}#{request.request_uri}" 
+ #    		redirect_to(new_url, :status => 301) 
+ #    	end
+	# end
 end
