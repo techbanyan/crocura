@@ -1,11 +1,19 @@
 .stream-container
-	-if @query == NIL || @query == "likes" || @query == "feed"
-		.whitespace50
-		=render :partial => "profile/stream", :locals => { :media => media }
-		.whitespace25
-		=render :partial => "profile/show_more_bar", :locals => {:id => @user_id, :query => @query}
+	-if @query == NIL || @query == "likes" || @query == "photos"
+		-if media.count == 0
+			=render :partial => "profile/no_photos_found"	
+		-else		
+			.whitespace50
+			=render :partial => "profile/stream", :locals => { :media => media }
+			.whitespace25
+			-if show_more_bar == true
+				=render :partial => "profile/show_more_bar", :locals => {:id => @user_id, :query => @query}
 	-elsif @query == "followers" || @query == "following"
-		.whitespace50
-		=render :partial => "profile/followers_following_stream", :locals => {:media => media}
-		.whitespace25
-		=render :partial => "profile/show_more_bar", :locals => {:id => @user_id, :query => @query}
+		-if media.count == 0
+			=render :partial => "profile/no_users_found"
+		-else
+			.whitespace50
+			=render :partial => "profile/followers_following_stream", :locals => {:media => media}
+			.whitespace25
+			-if show_more_bar == true
+				=render :partial => "profile/show_more_bar", :locals => {:id => @user_id, :query => @query}

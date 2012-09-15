@@ -6,7 +6,7 @@
 					=image_tag @user.profile_picture, :height => "100px", :width => "100px", :class=> "brand"
 				%ul(class="nav")
 					%li
-						=link_to "My Feed", profile_path(:id => @user[:id], :query => "feed"), :class => "profile-my-feed-button explore-pictures-tabs", :remote => true
+						=link_to "My Feed", profile_path, :class => "profile-my-feed-button explore-pictures-tabs", :remote => true
 					%li
 						=link_to "My Likes", profile_path(:id => @user[:id], :query => "likes"), :class => "profile-my-likes-button explore-pictures-tabs", :remote => true
 				%ul(class="nav pull-right")
@@ -17,7 +17,7 @@
 									Photos
 							%tr
 								%td
-									=link_to "#{@user.counts.media}", profile_path, :class => "explore-pictures-tabs", :remote => true
+									=link_to "#{@user.counts.media}", profile_path(:id => @user[:id], :query => "photos"), :class => "explore-pictures-tabs", :remote => true
 					%li
 						%table
 							%tr

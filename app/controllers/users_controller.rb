@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
 	def show
 		@show_more_data = false
+		@show_more_bar = false
 		users_stream_container
 	end
 
@@ -24,6 +25,11 @@ class UsersController < ApplicationController
 					media_packet = Instagram.user_followed_by(@user_id, :access_token => session[:access_token], :count => 28)
 					if media_packet.data.present?
 						@next_cursor = media_packet.pagination.next_cursor
+						if @next_cursor.present?
+							@show_more_bar = true
+						else
+							@show_more_bar = false
+						end
 						Rails.cache.write('next_cursor', @next_cursor)
 						@media = media_packet.data
 					else
@@ -35,6 +41,11 @@ class UsersController < ApplicationController
 					media_packet = Instagram.user_follows(@user_id, :access_token => session[:access_token], :count => 28)
 					if media_packet.data.present?
 						@next_cursor = media_packet.pagination.next_cursor
+						if @next_cursor.present?
+							@show_more_bar = true
+						else
+							@show_more_bar = false
+						end
 						Rails.cache.write('next_cursor', @next_cursor)
 						@media = media_packet.data
 					else
@@ -48,13 +59,25 @@ class UsersController < ApplicationController
 				if @user_array.data.present?
 					if @user_array.data.first.username == params[:id]			
 						@user_id = @user_array.data.first.id
-						@user = Instagram.user(@user_id)
-						if current_user
-							@user_relationship = Instagram.user_relationship(@user_id, :access_token => session[:access_token])
-							media_packet = Instagram.user_recent_media(@user_id, :access_token => session[:access_token], :count => 18)
-							@next_max_id = media_packet.pagination.next_max_id
-							Rails.cache.write('next_max_id', @next_max_id)
-							@media = media_packet.data
+						begin 
+							@user = Instagram.user(@user_id)
+							if current_user
+								if current_user.uid != @user_id
+									@user_relationship = Instagram.user_relationship(@user_id, :access_token => session[:access_token])
+								end
+								media_packet = Instagram.user_recent_media(@user_id, :access_token => session[:access_token], :count => 18)
+								@next_max_id = media_packet.pagination.next_max_id
+								if @next_max_id.present?
+									@show_more_bar = true
+								else
+									@show_more_bar = false
+								end
+								Rails.cache.write('next_max_id', @next_max_id)
+								@media = media_packet.data
+							end
+						rescue
+							flash[:error] = "Sorry, #{@user_array.data.first.username} is a private user"
+							redirect_to root_url
 						end
 					else
 						flash[:error] = "User #{params[:id]} is not found"
@@ -68,7 +91,7 @@ class UsersController < ApplicationController
 		    respond_with do |format|
 		        format.html do
 		        	if request.xhr?
-		            	render :partial => "users/users_stream_container", :locals => { :media => @media, :user_id => @user_id, :username => params[:id], :layout => false, :status => :created}
+		            	render :partial => "users/users_stream_container", :locals => { :show_more_bar => @show_more_bar, :media => @media, :user_id => @user_id, :username => params[:id], :layout => false, :status => :created}
 		        	end
 		    	end
 		    end
@@ -76,39 +99,66 @@ class UsersController < ApplicationController
 		else
 			if @query.present?
 				if @query == "followers"
-					@cursor ||= Rails.cache.fetch('next_cursor')
-					media_packet = Instagram.user_followed_by(params[:id], :cursor => @cursor, :access_token => session[:access_token], :count => 28)
-					if media_packet.data.present?
+					@cursor = Rails.cache.fetch('next_cursor')
+					if @cursor.present?
+						media_packet = Instagram.user_followed_by(params[:id], :cursor => @cursor, :access_token => session[:access_token], :count => 28)
+						if media_packet.data.present?
+							@next_cursor = media_packet.pagination.next_cursor
+							if @next_cursor.present?
+								@show_more_bar = true
+							else
+								@show_more_bar = false
+							end
+							Rails.cache.write('next_cursor', @next_cursor)
+							@media = media_packet.data
+						else
+							flash[:error] = "User #{params[:id]} is not found"
+							redirect_to root_url
+						end
 						@next_cursor = media_packet.pagination.next_cursor
 						Rails.cache.write('next_cursor', @next_cursor)
-						@media = media_packet.data
 					else
-						flash[:error] = "User #{params[:id]} is not found"
-						redirect_to root_url
-					end
-					@next_cursor = media_packet.pagination.next_cursor
-					Rails.cache.write('next_cursor', @next_cursor)					
+						@show_more_bar = true
+					end					
 				elsif @query == "following"
-					@cursor ||= Rails.cache.fetch('next_cursor')
-					media_packet = Instagram.user_follows(params[:id], :cursor => @cursor, :access_token => session[:access_token], :count => 28)
-					if media_packet.data.present?
+					@cursor = Rails.cache.fetch('next_cursor')
+					if @cursor.present?
+						media_packet = Instagram.user_follows(params[:id], :cursor => @cursor, :access_token => session[:access_token], :count => 28)
+						if media_packet.data.present?
+							@next_cursor = media_packet.pagination.next_cursor
+							if @next_cursor.present?
+								@show_more_bar = true
+							else
+								@show_more_bar = false
+							end
+							Rails.cache.write('next_cursor', @next_cursor)
+							@media = media_packet.data
+						else
+							flash[:error] = "User #{params[:id]} is not found"
+							redirect_to root_url
+						end
 						@next_cursor = media_packet.pagination.next_cursor
 						Rails.cache.write('next_cursor', @next_cursor)
-						@media = media_packet.data
 					else
-						flash[:error] = "User #{params[:id]} is not found"
-						redirect_to root_url
+						@show_more_bar = true
 					end
-					@next_cursor = media_packet.pagination.next_cursor
-					Rails.cache.write('next_cursor', @next_cursor)
 				end
 			else		
 				if current_user
-					@next_max_id ||= Rails.cache.fetch('next_max_id')
-					media_packet = Instagram.user_recent_media(params[:id], :max_id => @next_max_id, :access_token => session[:access_token], :count => 18)
-					@media = media_packet.data
-					@next_max_id = media_packet.pagination.next_max_id
-					Rails.cache.write('next_max_id', @next_max_id)
+					@next_max_id = Rails.cache.fetch('next_max_id')
+					if @next_max_id.present?
+						media_packet = Instagram.user_recent_media(params[:id], :max_id => @next_max_id, :access_token => session[:access_token], :count => 18)
+						@media = media_packet.data
+						@next_max_id = media_packet.pagination.next_max_id
+						if @next_max_id.present?
+							@show_more_bar = true
+						else
+							@show_more_bar = false
+						end
+						Rails.cache.write('next_max_id', @next_max_id)
+					else
+						@show_more_bar = true
+					end
 				else
 					flash[:error] = "User #{params[:id]} is not found"
 					redirect_to root_url

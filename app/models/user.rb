@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   		user.uid = auth["uid"]
   		user.name = auth["info"]["name"]
   		user.username = auth["info"]["nickname"]
+      user.profile_picture = auth["info"]["profile_picture"]
   	end
   end
 end

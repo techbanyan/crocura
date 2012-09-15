@@ -1,7 +1,7 @@
 =render :partial => "users/user_profile_template"
 - if !current_user && @query == NIL
 	=render :partial => "users/sign_in_band"
-= render :partial => "users/users_stream_container", :locals => {:media => @media, :user_id => @user_id}
+= render :partial => "users/users_stream_container", :locals => {:show_more_bar => @show_more_bar, :media => @media, :user_id => @user_id}
 .container-fluid
 	.row-fluid
 		.span4
