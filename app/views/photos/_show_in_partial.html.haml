@@ -22,7 +22,7 @@
 							.row-fluid
 								.span7
 								.span5
-									=render :partial => "photos/share_buttons"
+									=render :partial => "photos/share_buttons", :locals => {:photo_id => @photo["id"]}
 							.whitespace25
 
 			.span5
