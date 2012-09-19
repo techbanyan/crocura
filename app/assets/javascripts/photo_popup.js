@@ -6,9 +6,8 @@ $(document).ready(function(){
 	    })
 
 		.live("ajax:success", function(evt, data, status, xhr){
-	      	//$(this).fancybox({
 	      	$.fancybox(this,{
 				content: xhr.responseText,
-			});
+			}); 			
 	    })
 });

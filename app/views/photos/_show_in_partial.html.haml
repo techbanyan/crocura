@@ -24,7 +24,6 @@
 								.span5
 									=render :partial => "photos/share_buttons", :locals => {:photo_id => @photo["id"]}
 							.whitespace25
-
 			.span5
 				=render :partial => "likes", :locals => {:photo => @photo}
 				.whitespace10
@@ -34,3 +33,4 @@
 					=render :partial => "photos/comment_and_like_box", :locals => {:photo_id => @photo["id"]}
 				.whitespace10
 				=render :partial => "comments", :locals => {:photo => @photo}
+			.show-some-magic
