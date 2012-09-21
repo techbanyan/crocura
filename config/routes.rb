@@ -18,6 +18,9 @@ Crocura::Application.routes.draw do
   match "stream" => "welcome#stream"
   match "stream_container" => "welcome#stream_container"
 
+  match "search" => "search#search"
+  match "search_stream_container" => "search#search_stream_container"
+
   match "users_stream" => "users#users_stream"
   match "users_stream_container" => "users#users_stream_container"
 

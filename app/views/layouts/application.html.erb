@@ -14,6 +14,8 @@
     
     <%= analytics_init if Rails.env.production? %>
 
+    <meta name="msvalidate.01" content="BDE14BA65B4A3386CDFF335F1AFCCE1E" />
+
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-34841971-1']);
@@ -69,6 +71,7 @@
 
     <%= render :partial => "layouts/header_top"%>
     <%= render :partial => "layouts/header_middle"%>
+    <%= render :partial => "layouts/search_box"%>    
 
     <%flash.each do |key,value|%>
       <div class="container-fluid">

@@ -1,0 +1,7 @@
+.whitespace25
+= render :partial => "search_stream_container", :locals => {:media => @media, :querytype => @querytype, :query => @query, :show_more_bar => @show_more_bar}
+.container-fluid
+	.row-fluid
+		.span4
+		.span8
+			=image_tag "loading.gif", :class => "loading-stream", :width => '200', :height => '200'

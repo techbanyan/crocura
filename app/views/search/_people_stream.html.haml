@@ -1,4 +1,6 @@
-- if media.present?
+- if media.count == 0
+	=render :partial => "nothing_to_show"
+- else
 	.stream
 		.container-fluid
 			.row-fluid.user-followers-following-stream-row

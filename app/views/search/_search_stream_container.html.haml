@@ -1,0 +1,8 @@
+.stream-container
+	-if querytype == "tag" || querytype == "location"
+		=render :partial => "search/stream", :locals => { :media => media }
+	-if querytype == "people"
+		=render :partial => "search/people_stream", :locals => { :media => media }	
+	.whitespace25
+	-if show_more_bar == true
+		=render :partial => "show_more_bar", :locals => {:querytype => querytype, :query => query}

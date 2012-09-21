@@ -1,0 +1,6 @@
+.show-more-bar
+	.container-fluid
+		.row-fluid
+			.span12
+				-if querytype == "tag" || querytype == "location"
+					=link_to "SHOW MORE", search_stream_container_path(:querytype => querytype, :query => query), :class => "btn blue load-more-bar load-more", :remote => true

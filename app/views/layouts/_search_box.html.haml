@@ -1,0 +1,12 @@
+-if params[:controller] == "welcome" || params[:controller] == "search"
+	.whitespace10
+	.container-fluid
+		.row-fluid.search-container
+			=form_tag "/search", :id => "search-form" do
+				.span12
+					.span6
+						= text_field_tag "query", "", :maxlength => 50, :class => "custom-textarea"
+					.span6
+						= submit_tag "Search Photos", :name => 'tag', :class => "btn btn-large override-btn"
+						= submit_tag "Find People", :name => 'people', :class => "btn btn-large override-btn"
+						= submit_tag "Search Location", :name => 'location', :class => "btn btn-large override-btn"
