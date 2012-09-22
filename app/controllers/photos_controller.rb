@@ -46,7 +46,7 @@ class PhotosController < ApplicationController
 	def like
 		# begin
 			@photo = Instagram.media_item(params[:photo_id], :access_token => session[:access_token])
-			if @photo.user_has_liked == FALSE
+			if @photo["user_has_liked"] == FALSE || @photo["user_has_liked"] == "false"
 				Instagram.like_media(params[:photo_id], :access_token => session[:access_token])
 				@photo = Instagram.media_item(params[:photo_id], :access_token => session[:access_token])
 				update_photo(@photo)
@@ -59,7 +59,7 @@ class PhotosController < ApplicationController
 						end
 					end
 				end
-			else
+			elsif @photo["user_has_liked"] == TRUE || @photo["user_has_liked"] == "true"
 				Instagram.unlike_media(params[:photo_id], :access_token => session[:access_token])
 				@photo = Instagram.media_item(params[:photo_id], :access_token => session[:access_token])
 				update_photo(@photo)

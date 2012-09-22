@@ -29,7 +29,6 @@ gem "formtastic", "~> 2.1.1"
 gem "geocoder"
 gem "rich"
 gem "paperclip", "~> 3.1.4"
-gem 'google-analytics-rails'
 
 gem 'rspec-rails', :group => [:test, :development]
 

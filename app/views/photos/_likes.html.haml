@@ -6,9 +6,7 @@
 			.span1
 				-if current_user
 					-if photo["user_has_liked"] == FALSE || photo["user_has_liked"] == "false"
-						.heart-empty
-							=link_to '<div style="font-size: 35px;color: gray;"><i class="icon-heart"></i></div>'.html_safe, photos_like_path(:photo_id => photo["id"]), :class => "like-icon", :remote => true
+						=link_to 'Like', photos_like_path(:photo_id => photo["id"]), :class => "like-icon heart-empty", :remote => true
 					-elsif photo["user_has_liked"] == TRUE || photo["user_has_liked"] == "true"
-						.heart-full
-							=link_to '<div style="font-size: 35px;color: red;"><i class="icon-heart"></i></div>'.html_safe, photos_like_path(:photo_id => photo["id"]), :class => "like-icon", :remote => true
+						=link_to 'Liked', photos_like_path(:photo_id => photo["id"]), :class => "unlike-icon heart-full", :remote => true
 			=render :partial => "photos/likes_show", :locals => {:photo_id => photo["id"], :likes => photo["likes"]["data"]}

@@ -43,11 +43,6 @@
 		font-weight: bold;
 		border: 2px dotted @grayLight;
 
-		.like-icon {
-			font-size: 100px;
-			color: red;
-		}
-
 		a {
 			text-decoration: none;
 			color: @grayDark;
@@ -122,18 +117,40 @@
 }
 
 .heart-empty {
-	i {
-		&:hover {
-			color: red;
-		}
+	padding: 2px !important;
+	padding-left: 6px !important;
+	padding-right: 6px !important;
+	//margin-top: 15px !important;
+	font-family: 'Lucida Sans Unicode' !important;
+	font-size: 90%;
+	font-style: normal;	
+	font-weight: normal;
+	//margin-left: 1% !important;
+	background: #FF1493;
+	color: white !important;
+	border-radius: 4px 4px 4px 4px;	
+
+	&:hover {
+		background: red !important;
 	}
 }
 
 .heart-full {
-	i {
-		&:hover {
-			color: gray;
-		}
+	padding: 2px !important;
+	padding-left: 6px !important;
+	padding-right: 6px !important;
+	font-size: 90%;
+	//margin-top: 15px !important;
+	font-family: 'Lucida Sans Unicode' !important;
+	font-style: normal;
+	font-weight: normal;
+	//margin-left: 1% !important;
+	background: #FF1493;
+	color: white !important;
+	border-radius: 4px 4px 4px 4px;	
+
+	&:hover {
+		background: @gray !important;
 	}
 }
 
