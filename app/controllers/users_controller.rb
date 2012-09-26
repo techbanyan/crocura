@@ -2,6 +2,7 @@ require 'facets/enumerable/each_by'
 class UsersController < ApplicationController
 	respond_to :html, :xml, :json
 	before_filter :check_if_signed_in, :only => [:follow_user, :unfollow_user]
+	before_filter :check_if_logged_in_user_is_private
 
 	def index
 		flash[:error] = "Sorry! You are not authorized to view the page"
@@ -22,7 +23,7 @@ class UsersController < ApplicationController
 			if @query.present?
 				if @query == "followers"
 					@user_id = params[:id]
-					media_packet = Instagram.user_followed_by(@user_id, :access_token => session[:access_token], :count => 28)
+					media_packet = @client.user_followed_by(@user_id, :access_token => session[:access_token], :count => 28)
 					if media_packet.data.present?
 						@next_cursor = media_packet.pagination.next_cursor
 						if @next_cursor.present?
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
 					end
 				elsif @query == "following"
 					@user_id = params[:id]
-					media_packet = Instagram.user_follows(@user_id, :access_token => session[:access_token], :count => 28)
+					media_packet = @client.user_follows(@user_id, :access_token => session[:access_token], :count => 28)
 					if media_packet.data.present?
 						@next_cursor = media_packet.pagination.next_cursor
 						if @next_cursor.present?
@@ -54,18 +55,18 @@ class UsersController < ApplicationController
 					end
 				end
 			else
-				@user_array = Instagram.user_search(params[:id], :count => 1)
+				@user_array = @client.user_search(params[:id], :count => 1)
 				@username = params[:id]
 				if @user_array.data.present?
 					if @user_array.data.first.username == params[:id]			
 						@user_id = @user_array.data.first.id
 						begin 
-							@user = Instagram.user(@user_id)
+							@user = @client.user(@user_id)
 							if current_user
 								if current_user.uid != @user_id
-									@user_relationship = Instagram.user_relationship(@user_id, :access_token => session[:access_token])
+									@user_relationship = @client.user_relationship(@user_id, :access_token => session[:access_token])
 								end
-								media_packet = Instagram.user_recent_media(@user_id, :access_token => session[:access_token], :count => 18)
+								media_packet = @client.user_recent_media(@user_id, :access_token => session[:access_token], :count => 18)
 								@next_max_id = media_packet.pagination.next_max_id
 								if @next_max_id.present?
 									@show_more_bar = true
@@ -101,7 +102,7 @@ class UsersController < ApplicationController
 				if @query == "followers"
 					@cursor = Rails.cache.fetch('next_cursor')
 					if @cursor.present?
-						media_packet = Instagram.user_followed_by(params[:id], :cursor => @cursor, :access_token => session[:access_token], :count => 28)
+						media_packet = @client.user_followed_by(params[:id], :cursor => @cursor, :access_token => session[:access_token], :count => 28)
 						if media_packet.data.present?
 							@next_cursor = media_packet.pagination.next_cursor
 							if @next_cursor.present?
@@ -123,7 +124,7 @@ class UsersController < ApplicationController
 				elsif @query == "following"
 					@cursor = Rails.cache.fetch('next_cursor')
 					if @cursor.present?
-						media_packet = Instagram.user_follows(params[:id], :cursor => @cursor, :access_token => session[:access_token], :count => 28)
+						media_packet = @client.user_follows(params[:id], :cursor => @cursor, :access_token => session[:access_token], :count => 28)
 						if media_packet.data.present?
 							@next_cursor = media_packet.pagination.next_cursor
 							if @next_cursor.present?
@@ -147,7 +148,7 @@ class UsersController < ApplicationController
 				if current_user
 					@next_max_id = Rails.cache.fetch('next_max_id')
 					if @next_max_id.present?
-						media_packet = Instagram.user_recent_media(params[:id], :max_id => @next_max_id, :access_token => session[:access_token], :count => 18)
+						media_packet = @client.user_recent_media(params[:id], :max_id => @next_max_id, :access_token => session[:access_token], :count => 18)
 						@media = media_packet.data
 						@next_max_id = media_packet.pagination.next_max_id
 						if @next_max_id.present?
@@ -195,6 +196,17 @@ class UsersController < ApplicationController
 		if !current_user
 			flash[:error] = "You are not authorized to view this page!"
 			redirect_to root_url
+		end
+	end
+
+	def check_if_logged_in_user_is_private
+		if current_user
+			@client = Instagram.client(:access_token => session[:access_token])
+			if @client.user.username != params[:id]
+				@client = Instagram
+			end
+		else
+			@client = Instagram
 		end
 	end
 end

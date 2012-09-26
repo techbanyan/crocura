@@ -1,5 +1,9 @@
 $(document).ready(function(){
-	
+
+	$('show-more-bar').waypoint(function() {
+   		alert('You have scrolled to an entry.');
+	});
+
 	$('.load-more')
 	    .live("ajax:beforeSend", function(evt, xhr, settings){
 	      var $submitButton = $(this).find('input[name="commit"]');

@@ -30,6 +30,7 @@ gem "geocoder"
 gem "rich"
 gem "paperclip", "~> 3.1.4"
 gem 'google-analytics-rails'
+gem 'jquery-waypoints-rails'
 
 gem 'rspec-rails', :group => [:test, :development]
 
