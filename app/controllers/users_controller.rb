@@ -60,7 +60,7 @@ class UsersController < ApplicationController
 				if @user_array.data.present?
 					if @user_array.data.first.username == params[:id]			
 						@user_id = @user_array.data.first.id
-						begin 
+						begin
 							@user = @client.user(@user_id, :access_token => session[:access_token])
 							if current_user
 								if current_user.uid != @user_id

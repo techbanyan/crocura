@@ -4,5 +4,13 @@
 			.row-fluid.user-followers-following-stream-row
 				-media.each do |user|
 					.span2.user-followers-following-stream-span
-						.thumb
+						.user-thumb
 							= link_to image_tag(user.profile_picture, :width => '115', :height => '115', :class => "user-followers-following-thumb-decoration"), user_path(user.username)
+							.photo-hover-content-bottom
+								.row-fluid
+									.span12
+										%table
+											%tr
+												%td
+													-if user.username.present?
+														=link_to user.username, user_path(user.username)
