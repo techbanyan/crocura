@@ -2,24 +2,13 @@
 
 	<div id = "row-fluid">
 		<div id = "span12">
-			<div id="fb-root"></div>
-			<script>(function(d, s, id) {
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) return;
-				js = d.createElement(s); js.id = id;
-				js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=248582838595441";
-				fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));</script>
-
-			<div class="fb-like" data-href="http://crocura.com/photos/<%=photo_id%>" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+			<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcrocura.com%2Fphotos%2F<%=photo_id%>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=248582838595441" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>	
 		</div>
 	</div>
 
 	<div id = "row-fluid">
 		<div id = "span12">
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://crocura.com/photos/<%=photo_id%>" data-text="Check out this photo on Crocura :">Tweet</a>
-
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			<iframe allowtransparency="true" frameborder="0" scrolling="no" src="https://platform.twitter.com/widgets/tweet_button.html?text=Check out this photo on Crocura : http://crocura.com/photos/<%=photo_id%>" style="width:130px; height:20px;" url="http://crocura.com/photos/<%=photo_id%>" text="Check out this photo on Crocura :"></iframe>
 		</div>
 	</div>
 

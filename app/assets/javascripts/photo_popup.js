@@ -8,6 +8,6 @@ $(document).ready(function(){
 		.live("ajax:success", function(evt, data, status, xhr){
 	      	$.fancybox(this,{
 				content: xhr.responseText,
-			}); 			
-	    })
+			}); 
+	    });
 });
