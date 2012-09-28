@@ -14,8 +14,17 @@
 
 	<div id = "row-fluid">
 		<div id = "span12">
-			<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-			<g:plusone href="http://crocura.com/photos/<%=photo_id%>"></g:plusone>
+			<!-- Place this tag where you want the +1 button to render. -->
+			<div class="g-plusone" data-size="medium" data-href="http://crocura.com/photos/<%=photo_id%>"></div>
+
+			<!-- Place this tag after the last +1 button tag. -->
+			<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
 		</div>
 	</div>
 </div>
